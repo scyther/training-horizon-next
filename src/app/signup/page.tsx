@@ -1,4 +1,14 @@
 
-export default function page (){
-    return <h1>SignUp Page</h1>
+import SignUpcard from '@/components/SignUpcard'
+import Page from '@/components/SignUpcard'
+import React, { Component } from 'react'
+
+const page = () => {
+  return (
+    <main className="flex justify-center items-center h-screen bg-transparent">
+      <SignUpcard/>
+    </main>
+  )
 }
+
+export default page
