@@ -1,113 +1,58 @@
-import Image from "next/image";
+import Topbar from '@/Components/trainer-dashboard/Topbar'
+import Teacher from '@/Components/trainer-dashboard/Teacher'
+import { RatingsIcon, RankingIcon, BatchesIcon, LanguagesIcon, ChatIcon } from './icons/icon';
 
 export default function Home() {
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:size-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+  const cardData1 = [
+    { icon: <RatingsIcon />, title: 'Ratings', description: '4.5/5' },
+    { icon: <RankingIcon />, title: 'Teacher Ranking', description: '10' },
+    { icon: <BatchesIcon />, title: 'Batches Scheduled', description: '112' },
+    { icon: <LanguagesIcon />, title: 'Languages', description: '2' },
+  ];
+  const cardData2 = [
+    { icon: <RatingsIcon />, title: 'Ratings', description: '4.5/5' },
+    { icon: <RankingIcon />, title: 'Teacher Ranking', description: '10' },
+    { icon: <BatchesIcon />, title: 'Batches Scheduled', description: '112' },
+    { icon: <ChatIcon/>, title: 'Chat with us for any query.', description: 'Assistance' },
+  ];
 
-      <div className="relative z-[-1] flex place-items-center before:absolute before:h-[300px] before:w-full before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 sm:before:w-[480px] sm:after:w-[240px] before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
+  const about = `I am a scientist with a strong passion for teaching with 15 years of teaching experience. Received a Doctorate in Physics from a reputable university in the United States and I am currently residing in Toronto providing private and group lessons for middle school, high school, and college students.`;
+  const workHistory = `• 2017 to 2018 Postdoctoral Research Fellow Medical College of Wisconsin – Milwaukee, WI
+• Conducted experimental and computational research on an MR-Linac medical linear accelerator to pinpoint the instrument design effect on the dose distribution
+• Took part in experiments to identify the effects of the source-to-axis distance difference between an MR-Linac and a conventional Linac
+• Generated 3D and IMRT dose plans with Monaco workstation
+• Received machine quality assurance and safety training on conventional Linacs
+• Calibrated and operated radiation detection instruments
+• Authored professional scientific papers for publishing in peer-reviewed journals
+• Explored data to discover patterns, meaningful relationships, anomalies, and trends
+• Gained knowledge of radiation safety procedures, standards
+• 2010 to 2017 Research & Teaching Assistant Temple University – Philadelphia, PA, USA
+• Designed and carried out laser spectroscopy experiments such as optical-optical double resonance and Autler-Townes splitting experiments.
+• Gained extensive experience in operating, and troubleshooting various types of lasers such as tunable single longitudinal mode ring dye and Ti: Sapphire lasers, and their Diode, Argon-Ion pump lasers, Fourier Transform Interferometer (FTIR), and double grating spectrometer (SPEX 1404).`;
+
+const education = `• MSc in Medical Biophysics (Clinical Medical Biophysics Master’s - CAMPEP Stream) - The University of Western Ontario, London, ON, Canada\n
+• Ph.D. in Physics - Temple University, Philadelphia, PA, USA\n`
+
+const publication = `• Chen, X., Paulson, E. S., Ahunbay, E., Sanli, A., Klawikowski, S., & Li, X. A. (2019). Measurement validation of treatment planning for an MR‐Linac. Journal of Applied Clinical Medical Physics, 20, 28-38 (2019)`;
+
+    return (
+      <>
+        <Topbar />
+        <Teacher
+          name="Ryan Doblen"
+          email="RyanDoblen@gmail.com"
+          mobileNo="992394239"
+          teacherId="873"
+          location="Chicago, United States"
+          imageUrl="https://s3-alpha-sig.figma.com/img/585d/480b/d17905db359f8c711418f17390b80b9e?Expires=1724630400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=N0PJZJ1I8gsbKT8vHX3okXNc6aijt0wvIZ0a1ekO2fnrkbEL5aeXjkJXSG6HlfiaHOjJXWCnV7uf4VboKFZGh2iQrl~wZ~hYg5IRKJO0ihQ3ypMYqeLtCYtYxfv2PvMA6WgS3jHkkIt5cdUlJfiTHjiTzXKFEQ1wZDa5qn2Gfj6WC68kHzknDDkQemigrfMCUkTXeBIESUxUopevjjqWVGFcQEx-xadRhDLFHzCxppLBCjWbpk342-3TF4~lgePPBa67-nbERZ5iLIL6u00uXlmG9U36K1aAG7zXp-yAh0HL90DQJ6M2n2Ce8GXJ6dSh20Tuz5WfULw3NH3w-6TQZg__"
+          about={about}
+          workHistory={workHistory}
+          education={education}
+          publication={publication}
+          cardData={cardData1}
+          linkedin="Dylan1432"
         />
-      </div>
+      </>
+    );
 
-      <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-balance text-sm opacity-50">
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  );
 }
