@@ -11,51 +11,57 @@ import {
   
  function Page() {
   return (
-    <div className="grid w-full max-w-sm items-center gap-3">
-      <Label htmlFor="email">First name</Label>
-      <Input type="email" id="email"  />
-      <Label htmlFor="email">Last Name</Label>
-      <Input type="email" id="email"  />
-      <Label htmlFor="email">DATE OF BIRTH</Label>
-      <Input type="email" id="email" />
-      <Label htmlFor="gender">GENDER</Label>
-      
-      <Select>
-  <SelectTrigger className="w-[180px]">
-    <SelectValue />
-  </SelectTrigger>
-  <SelectContent>
-    <SelectItem value="light">MALE</SelectItem>
-    <SelectItem value="dark">FEMALE</SelectItem>
-   
-  </SelectContent>
-</Select>
-      <Label htmlFor="email">RELATIONSHIT</Label>
-      <Input type="email" id="email" />
-      <Label htmlFor="email">ADDRESS</Label>
-      <Input type="email" id="email" />
-      <Label htmlFor="email">CITY</Label>
-      <Select>
-  <SelectTrigger className="w-[180px]">
-    <SelectValue  />
-  </SelectTrigger>
-  <SelectContent>
-    <SelectItem value="light">MUMBAI</SelectItem>
-    <SelectItem value="dark">DELHI</SelectItem>
-    <SelectItem value="system">HARYANA</SelectItem>
-  </SelectContent>
-</Select>
+    <div className="grid w-full max-w-lg items-center gap-3">
+  <Label htmlFor="firstName">FIRST NAME</Label>
+  <Input type="text" id="firstName"  />
 
-      <Label htmlFor="email">SCHOOL OF THE LEARNER</Label>
-      <Input type="email" id="email" />
-      <Label htmlFor="email">FAMILY DOCTOR NAME</Label>
-      <Input type="email" id="email" />
-      <Label htmlFor="email">FAMILY DOCTOR CONTACT NUMBER</Label>
-      <Input type="email" id="email"  />
-      <Button className="bg-yellow-300">Register</Button>
+  <Label htmlFor="lastName">LAST NAME</Label>
+  <Input type="text" id="lastName" />
 
-    </div>
-    
+  <Label htmlFor="dob">DATE OF BIRTH</Label>
+  <Input type="date" id="dob" />
+
+  <Label htmlFor="gender">GENDER</Label>
+  <Select>
+    <SelectTrigger className="w-[180px]">
+      <SelectValue placeholder="Select Gender" />
+    </SelectTrigger>
+    <SelectContent>
+      <SelectItem value="male">MALE</SelectItem>
+      <SelectItem value="female">FEMALE</SelectItem>
+    </SelectContent>
+  </Select>
+
+  <Label htmlFor="relationship">RELATIONSHIP</Label>
+  <Input type="text" id="relationship" />
+
+  <Label htmlFor="address">ADDRESS</Label>
+  <Input type="text" id="address" />
+
+  <Label htmlFor="city">CITY</Label>
+  <Select>
+    <SelectTrigger className="w-[180px]">
+      <SelectValue placeholder="Select City" />
+    </SelectTrigger>
+    <SelectContent>
+      <SelectItem value="mumbai">MUMBAI</SelectItem>
+      <SelectItem value="delhi">DELHI</SelectItem>
+      <SelectItem value="haryana">HARYANA</SelectItem>
+    </SelectContent>
+  </Select>
+
+  <Label htmlFor="school">SCHOOL OF THE LEARNER</Label>
+  <Input type="text" id="school" />
+
+  <Label htmlFor="doctorName">FAMILY DOCTOR NAME</Label>
+  <Input type="text" id="doctorName" />
+
+  <Label htmlFor="doctorContact">FAMILY DOCTOR CONTACT NUMBER</Label>
+  <Input type="tel" id="doctorContact" />
+
+  <Button className="bg-yellow-300">Register</Button>
+</div>
+
     
   )
 }
