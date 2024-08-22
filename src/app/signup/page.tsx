@@ -5,9 +5,9 @@ import React, { Component } from 'react'
 
 const page = () => {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-24">
-  <SignUpcard/>
-</main>
+    <main className="flex justify-center items-center h-screen bg-transparent">
+      <SignUpcard/>
+    </main>
   )
 }
 

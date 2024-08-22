@@ -1,53 +1,45 @@
-
 "use client"; 
 import * as React from "react"
 import { Button } from "@/components/ui/button"
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
+import {Card, CardContent, CardFooter, CardHeader,} from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
+import Link from "next/link";
 
-
- function SignUpcard() {
+function SignUpcard() {
   return (
-    <Card className="w-[600px]  h-[500px]">
-      <CardHeader>
-        <CardTitle className="text-3xl">Registration</CardTitle>
-        
-      </CardHeader>
-      <CardContent>
-        <form>
-          <div className="grid w-full items-center gap-8 text-lg">
-            <div className="flex flex-col space-y-1.5">
-              <Label className="text-2xl" htmlFor="email">Email</Label>
-              <Input type="email" id="email" placeholder="email"  className=" text-2xl h-12"   />
-            </div>
-            <div className="flex flex-col space-y-1.5">
-              <Label className="text-2xl" htmlFor="password">password</Label>
-              <Input type="password" id="password" placeholder="password"  className="text-2xl h-12"/>
-            </div>
-            
-           <Button className="bg-green-800 mt-4 text-2xl h-16 rounded-lg ">Register</Button>
-          </div>
-        </form>
-      </CardContent>
-      <CardFooter className="flex justify-between">
-       <h1 className="text-xl">Aready have an account?</h1> <h1 className="text-blue-500 text-xl">sign in</h1>
-      </CardFooter>
-    </Card>
+    <main className="bg-white h-screen flex items-center justify-center p-10">
+          <Card className="max-w-lg mx-auto p-6">
+            <CardHeader>
+                <h2 className="text-xl font-semibold">Create your account</h2>
+            </CardHeader>
+            <CardContent>
+                <div className="space-y-4">
+                <div>
+                    <Label htmlFor="email">Email</Label>
+                    <Input type="email" id="email" placeholder="Enter your email" />
+                </div>
+                <div>
+                    <Label htmlFor="password">Password</Label>
+                    <Input type="password" id="password" placeholder="Enter your password" />
+                </div>
+                <div>
+                    <Label htmlFor="confirmpassword">Confirm Password</Label>
+                    <Input type="password" id="password" placeholder="Enter your password again" />
+                </div>
+                <Button className="w-full mt-4 bg-[#00866E]">Create Account</Button> 
+                </div>
+            </CardContent>
+            <CardFooter className="text-center mt-4">
+            <div className="text-sm text-gray-600">
+          Already have an account?{" "}
+          <Link href="/login">
+            <span className="text-blue-600 cursor-pointer">Login here!</span>
+          </Link>
+        </div>
+            </CardFooter>
+            </Card>
+        </main>
   )
 }
  export  default SignUpcard
