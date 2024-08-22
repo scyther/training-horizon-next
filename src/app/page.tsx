@@ -1,7 +1,7 @@
-import Topbar from '@/Components/trainer-dashboard/Topbar'
-import Teacher from '@/Components/trainer-dashboard/Teacher'
+// import Topbar from '@/Components/trainer-dashboard/Topbar'
+// import Teacher from '@/app/Dashboard/Teacher'
 import { RatingsIcon, RankingIcon, BatchesIcon, LanguagesIcon, ChatIcon } from './icons/icon';
-
+import Front from '@/app/Userflow/Front'
 export default function Home() {
   const cardData1 = [
     { icon: <RatingsIcon />, title: 'Ratings', description: '4.5/5' },
@@ -37,8 +37,8 @@ const publication = `• Chen, X., Paulson, E. S., Ahunbay, E., Sanli, A., Klawi
 
     return (
       <>
-        <Topbar />
-        <Teacher
+        {/* <Topbar /> */}
+        {/* <Teacher
           name="Ryan Doblen"
           email="RyanDoblen@gmail.com"
           mobileNo="992394239"
@@ -51,7 +51,9 @@ const publication = `• Chen, X., Paulson, E. S., Ahunbay, E., Sanli, A., Klawi
           publication={publication}
           cardData={cardData1}
           linkedin="Dylan1432"
-        />
+          
+        /> */}
+        <Front/>
       </>
     );
 

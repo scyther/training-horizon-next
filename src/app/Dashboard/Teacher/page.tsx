@@ -1,6 +1,6 @@
 
 import React from "react";
-import Card from "./Card";
+import Card from "@/Components/trainer-dashboard/Card";
 import Image from "next/image";
 
 interface TeacherProps {
@@ -221,7 +221,7 @@ const Teacher = ({
             <p className="text-lg md:text-xl font-semibold">Publication</p>
             <p className="text-gray-600 mt-2">{publication}</p>
           </div>
-          <div className="flex flex-wrap justify-around mt-5">
+          {/* <div className="flex flex-wrap justify-around mt-5">
             {cardData.map((card, index) => (
               <Card
                 key={index}
@@ -230,7 +230,7 @@ const Teacher = ({
                 description={card.description}
               />
             ))}
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
