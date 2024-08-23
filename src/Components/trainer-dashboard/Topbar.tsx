@@ -7,7 +7,7 @@ export default function Topbar() {
   // State to track the active button
   const [activeButton, setActiveButton] = useState('');
 
-  const handleClick = (buttonName) => {
+  const handleClick = (buttonName: string) => {
     setActiveButton(buttonName);
   };
 

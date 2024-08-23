@@ -26,7 +26,7 @@ const Navbar = () => {
             </Link>
             </div>
             <div>
-            <Link href="/join" className="text-gray-700 hover:text-black px-3 py-2 rounded-md text-sm font-medium">
+            <Link href="/Dashboard/Teacher/join_as_teacher" className="text-gray-700 hover:text-black px-3 py-2 rounded-md text-sm font-medium">
               Join as Teacher
             </Link>
             <Link href="/Userflow/login" className="text-gray-700 hover:text-black px-3 py-2 rounded-md text-sm font-medium">
