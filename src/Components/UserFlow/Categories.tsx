@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Image from "next/image";
 const categories = [
   { name: "Education", image: "/img/p1.svg" },
@@ -13,13 +14,14 @@ const categories = [
 
   // Add the rest of the categories here...
 ];
-
 const Categories = () => {
   return (
     <section className="py-2">
       <div className="flex justify-between items-center px-4 pb-8">
       <h2 className="  text-2xl font-bold ">Our Top Categories</h2>
+      <Link href="/courses">
         <button className="text-blue-400 text-xl hover:underline">View all</button>
+      </Link>
       </div>
       <div className="px-2 sm:px-20 grid grid-cols-2  md:grid-cols-5 gap-4 0  ">
         {categories.map((category, index) => (
