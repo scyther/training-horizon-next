@@ -14,6 +14,11 @@ export default function Home() {
           Signup
         </button>
       </Link>
+      <Link href="/UserRegistration">
+        <button className="bg-[#032031] border-[#17A8FC] border text-white py-2 px-4 rounded ml-4">
+          Registeration
+        </button>
+      </Link>
     </div>
   );
 }

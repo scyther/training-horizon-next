@@ -1,6 +1,5 @@
 
 import SignUpcard from '@/components/SignUpcard'
-import Page from '@/components/SignUpcard'
 import React, { Component } from 'react'
 
 const page = () => {
@@ -10,5 +9,4 @@ const page = () => {
     </main>
   )
 }
-
 export default page
