@@ -1,6 +1,6 @@
 
 import Topbar from '@/Components/trainer-dashboard/Topbar';
-import Main from '../../../../Components/trainer-dashboard/main'
+import Main from '@/Components/trainer-dashboard/main'
 import Navbar from '@/Components/trainer-dashboard/NavBar';
 export default function Home() {
   return (

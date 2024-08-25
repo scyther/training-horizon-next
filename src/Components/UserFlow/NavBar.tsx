@@ -26,12 +26,11 @@ const Navbar = () => {
             </Link>
             </div>
             <div>
-            <Link href="/Dashboard/Teacher/join_as_teacher" className="text-gray-700 hover:text-black px-3 py-2 rounded-md text-sm font-medium">
-
+            {/* <Link href="/Dashboard/Teacher/join_as_teacher" className="text-gray-700 hover:text-black px-3 py-2 rounded-md text-sm font-medium">
+            </Link> */}
               <Link href="/Userflow/addListing" className="bg-blue-300 text-black px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-200"> Add Listing
               </Link>
-            <Link href="/join" className="text-gray-700 hover:text-black px-3 py-2 rounded-md text-sm font-medium">
-
+            <Link href="/Dashboard/Teacher/join_as_teacher" className="text-gray-700 hover:text-black px-3 py-2 rounded-md text-sm font-medium">
               Join as Teacher
             </Link>
             <Link href="/Userflow/login" className="text-gray-700 hover:text-black px-3 py-2 rounded-md text-sm font-medium">
