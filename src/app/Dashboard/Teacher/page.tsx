@@ -1,28 +1,27 @@
-
 import React from "react";
-import Card from "@/Components/trainer-dashboard/Card";
+import Card from "@/components/trainer-dashboard/Card";
 import Image from "next/image";
 
-interface TeacherProps {
-  name: string;
-  email: string;
-  mobileNo: string;
-  teacherId: string;
-  location: string;
-  imageUrl: string;
-  about: string;
-  workHistory: string;
-  education: string;
-  publication: string;
-  linkedin: string;
-  cardData: Array<{
-    icon?: React.ReactNode;
-    title: string;
-    description: string;
-  }>;
-}
+// interface TeacherProps {
+//   name: string;
+//   email: string;
+//   mobileNo: string;
+//   teacherId: string;
+//   location: string;
+//   imageUrl: string;
+//   about: string;
+//   workHistory: string;
+//   education: string;
+//   publication: string;
+//   linkedin: string;
+//   cardData: Array<{
+//     icon?: React.ReactNode;
+//     title: string;
+//     description: string;
+//   }>;
+// }
 
-const Teacher = ({
+const Teacher: React.FC = ({
   name,
   email,
   mobileNo,
@@ -35,7 +34,7 @@ const Teacher = ({
   publication,
   linkedin,
   cardData,
-}: TeacherProps) => {
+}: any) => {
   return (
     <div className="absolute bg-white w-full max-w-[1650px] h-auto top-[90px] left-[50%] transform -translate-x-1/2 rounded-[10px]  border-gray-300 shadow-md z-20 p-6">
       <div className="flex flex-col md:flex-row mx-5 md:mx-10 mt-5 space-y-10 md:space-y-0 md:space-x-10 lg:space-x-28">
@@ -47,7 +46,7 @@ const Teacher = ({
             alt="Teacher"
             className="rounded-full h-[180px] w-[180px] md:h-[230px] md:w-[230px] mx-auto mb-5 object-cover"
             src={imageUrl}
-            width={230} 
+            width={230}
             height={230}
           />
 

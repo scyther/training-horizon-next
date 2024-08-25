@@ -1,19 +1,25 @@
-// import Topbar from '@/Components/trainer-dashboard/Topbar'
-// import Teacher from '@/app/Dashboard/Teacher'
-import { RatingsIcon, RankingIcon, BatchesIcon, LanguagesIcon, ChatIcon } from './icons/icon';
-import Front from '@/app/Userflow/Front'
+import Front from "@/app/userflow/Front";
+import RatingsIcon from "./icons/RatingIcon";
+import RankingIcon from "./icons/RankingIcon";
+import BatchesIcon from "./icons/BatchesIcon";
+import { LanguagesIcon } from "lucide-react";
+import ChatIcon from "./icons/ChatIcon";
 export default function Home() {
   const cardData1 = [
-    { icon: <RatingsIcon />, title: 'Ratings', description: '4.5/5' },
-    { icon: <RankingIcon />, title: 'Teacher Ranking', description: '10' },
-    { icon: <BatchesIcon />, title: 'Batches Scheduled', description: '112' },
-    { icon: <LanguagesIcon />, title: 'Languages', description: '2' },
+    { icon: <RatingsIcon />, title: "Ratings", description: "4.5/5" },
+    { icon: <RankingIcon />, title: "Teacher Ranking", description: "10" },
+    { icon: <BatchesIcon />, title: "Batches Scheduled", description: "112" },
+    { icon: <LanguagesIcon />, title: "Languages", description: "2" },
   ];
   const cardData2 = [
-    { icon: <RatingsIcon />, title: 'Ratings', description: '4.5/5' },
-    { icon: <RankingIcon />, title: 'Teacher Ranking', description: '10' },
-    { icon: <BatchesIcon />, title: 'Batches Scheduled', description: '112' },
-    { icon: <ChatIcon/>, title: 'Chat with us for any query.', description: 'Assistance' },
+    { icon: <RatingsIcon />, title: "Ratings", description: "4.5/5" },
+    { icon: <RankingIcon />, title: "Teacher Ranking", description: "10" },
+    { icon: <BatchesIcon />, title: "Batches Scheduled", description: "112" },
+    {
+      icon: <ChatIcon />,
+      title: "Chat with us for any query.",
+      description: "Assistance",
+    },
   ];
 
   const about = `I am a scientist with a strong passion for teaching with 15 years of teaching experience. Received a Doctorate in Physics from a reputable university in the United States and I am currently residing in Toronto providing private and group lessons for middle school, high school, and college students.`;
@@ -30,15 +36,15 @@ export default function Home() {
 • Designed and carried out laser spectroscopy experiments such as optical-optical double resonance and Autler-Townes splitting experiments.
 • Gained extensive experience in operating, and troubleshooting various types of lasers such as tunable single longitudinal mode ring dye and Ti: Sapphire lasers, and their Diode, Argon-Ion pump lasers, Fourier Transform Interferometer (FTIR), and double grating spectrometer (SPEX 1404).`;
 
-const education = `• MSc in Medical Biophysics (Clinical Medical Biophysics Master’s - CAMPEP Stream) - The University of Western Ontario, London, ON, Canada\n
-• Ph.D. in Physics - Temple University, Philadelphia, PA, USA\n`
+  const education = `• MSc in Medical Biophysics (Clinical Medical Biophysics Master’s - CAMPEP Stream) - The University of Western Ontario, London, ON, Canada\n
+• Ph.D. in Physics - Temple University, Philadelphia, PA, USA\n`;
 
-const publication = `• Chen, X., Paulson, E. S., Ahunbay, E., Sanli, A., Klawikowski, S., & Li, X. A. (2019). Measurement validation of treatment planning for an MR‐Linac. Journal of Applied Clinical Medical Physics, 20, 28-38 (2019)`;
+  const publication = `• Chen, X., Paulson, E. S., Ahunbay, E., Sanli, A., Klawikowski, S., & Li, X. A. (2019). Measurement validation of treatment planning for an MR‐Linac. Journal of Applied Clinical Medical Physics, 20, 28-38 (2019)`;
 
-    return (
-      <>
-        {/* <Topbar /> */}
-        {/* <Teacher
+  return (
+    <>
+      {/* <Topbar /> */}
+      {/* <Teacher
           name="Ryan Doblen"
           email="RyanDoblen@gmail.com"
           mobileNo="992394239"
@@ -53,8 +59,7 @@ const publication = `• Chen, X., Paulson, E. S., Ahunbay, E., Sanli, A., Klawi
           linkedin="Dylan1432"
           
         /> */}
-        <Front/>
-      </>
-    );
-
+      <Front />
+    </>
+  );
 }

@@ -1,4 +1,4 @@
-import { TrainerForm } from '@/Components/trainer-dashboard/form'
+import { TrainerForm } from '@/components/trainer-dashboard/form'
 import React from 'react'
 
 const main = () => {

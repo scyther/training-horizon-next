@@ -1,4 +1,4 @@
-import UserFlow from "@/Components/UserFlow/UserFlow";
+import UserFlow from "@/components/UserFlow/UserFlow";
 
 export default function Home() {
   return (
