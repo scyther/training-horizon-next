@@ -1,5 +1,5 @@
 
-import SignUpcard from '@/Components/UserFlow/SignUpcard'
+import SignUpcard from '@/components/UserFlow/SignUpcard'
 import React, { Component } from 'react'
 
 const page = () => {

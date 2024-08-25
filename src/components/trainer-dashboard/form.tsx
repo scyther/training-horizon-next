@@ -5,8 +5,8 @@ import { useForm } from "react-hook-form"
 import { z } from "zod"
 
 
-import { RadioGroup, RadioGroupItem } from "@/Components/trainer-dashboard/ui/radio-group"
-import { Button } from "@/Components/trainer-dashboard/ui/button"
+import { RadioGroup, RadioGroupItem } from "@/components/trainer-dashboard/ui/radio-group"
+import { Button } from "@/components/trainer-dashboard/ui/button"
 import {
     Form,
     FormControl,
@@ -15,8 +15,8 @@ import {
     FormItem,
     FormLabel,
     FormMessage,
-} from "@/Components/trainer-dashboard/ui/form"
-import { Input } from "@/Components/trainer-dashboard/ui/input"
+} from "@/components/trainer-dashboard/ui/form"
+import { Input } from "@/components/trainer-dashboard/ui/input"
 import JobDetailForm from "./jobDetailForm"
 import { Label } from "./ui/label"
 

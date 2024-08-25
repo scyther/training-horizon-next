@@ -3,7 +3,7 @@
 import React from "react";
 
 import { useState } from "react";
-import Pill from "@/Components/listingCoursesUi/Pill";
+import Pill from "@/components/listing/Pill";
 
 interface ListingCardProps {
   title: string;

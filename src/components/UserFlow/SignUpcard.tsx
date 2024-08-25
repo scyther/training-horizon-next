@@ -1,9 +1,9 @@
 "use client"; 
 import * as React from "react"
-import { Button } from "@/Components/Shared/ui/button"
-import {Card, CardContent, CardFooter, CardHeader,} from "@/Components/Shared/ui/card"
-import { Input } from "@/Components/Shared/ui/input"
-import { Label } from "@/Components/Shared/ui/label"
+import { Button } from "@/components/Shared/ui/button"
+import {Card, CardContent, CardFooter, CardHeader,} from "@/components/Shared/ui/card"
+import { Input } from "@/components/Shared/ui/input"
+import { Label } from "@/components/Shared/ui/label"
 import Link from "next/link";
 
 function SignUpcard() {
