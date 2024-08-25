@@ -1,4 +1,4 @@
-import TopNavigationBar from "@/Components/UserFlow/TopNavigationBar";
+import TopNavigationBar from "@/components/UserFlow/TopNavigationBar";
 
 export default function RootLayout({
   children,
