@@ -1,4 +1,4 @@
-import Topbar from "@/Components/trainer-dashboard/Topbar";
+import Topbar from "@/components/trainer-dashboard/Topbar";
 import { Inter } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
