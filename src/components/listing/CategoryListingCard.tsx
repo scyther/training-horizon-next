@@ -12,16 +12,18 @@ interface ListingCardProps {
   category: string;
   description: string;
   imageUrl: string;
-  time: string;
+  days: string;
+  price: string
 }
 
-const ListingCard: React.FC<ListingCardProps> = ({
+const CategoryListingCard: React.FC<ListingCardProps> = ({
   title,
   gender,
   category,
   description,
   imageUrl,
-  time,
+  days,
+  price
 }) => {
   const [isSelecetd, setIsSeleceted] = useState<boolean>(false);
 
@@ -32,8 +34,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
   const router = useRouter();
 
   return (
-    <div className="flex-col max-sm:w-10/12 mx-4 rounded-2xl overflow-hidden hover:shadow-2xl shadow-lg bg-sky-400 w-full h-[22rem] "
-    onClick={() => router.push("/courses/category")}>
+    <div className="flex-col max-sm:w-10/12 mx-4 rounded-2xl overflow-hidden hover:shadow-2xl shadow-lg bg-sky-400 w-full h-[22rem] ">
       <div className=" rounded-b-2xl bg-white px-2">
         <div className="flex px-4 py-4">
           <img
@@ -41,9 +42,6 @@ const ListingCard: React.FC<ListingCardProps> = ({
             alt={title}
             className="h-32 w-24 object-contain"
           />
-          <div className="flex w-full justify-end items-start">
-            <Pill text={time} color="bg-sky-400" icon="/icons/clock.png" />
-          </div>
         </div>
 
         <div>
@@ -61,9 +59,16 @@ const ListingCard: React.FC<ListingCardProps> = ({
             </div>
           </div>
           <h3 className="text-xl pt-1 font-semibold">{title}</h3>
-          <p className="text-xs text-gray-500 font-semibold">
-            On Monday & Thursday
-          </p>
+          
+          <div className="flex justify-between">
+            <p className="text-xs text-gray-500 font-semibold">
+              {days}
+            </p>
+            <p className="text-xs text-gray-500 font-semibold">
+              {price}
+            </p>
+          </div>
+          
           <p className="text-xs text-gray-700 py-3">
             Some description in 2-3 lines it can be about the trainer or about
             our facility
@@ -79,4 +84,4 @@ const ListingCard: React.FC<ListingCardProps> = ({
   );
 };
 
-export default ListingCard;
+export default CategoryListingCard;

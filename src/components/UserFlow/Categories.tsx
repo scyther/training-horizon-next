@@ -1,20 +1,23 @@
+"use client"
+import { useRouter } from 'next/navigation';
 import Link from "next/link";
 import Image from "next/image";
 const categories = [
   { name: "Education", image: "/img/p1.svg" },
   { name: "Sports", image: "/img/p2.svg" },
-  { name: "Dance", image: "/img/p3.svg" },
-  { name: "Music", image: "/img/p4.svg"},
-  { name: "Boxing", image: "/img/p5.svg"},
-  { name: "Cycling", image: "/img/p6.svg" },
-  { name: "Gymnastics", image: "/img/p7.svg" },
-  { name: "Athletics", image: "/img/p8.svg"},
-  { name: "Swimming", image: "/img/p9.svg" },
+  { name: "boxing", image: "/img/p3.svg" },
+  { name: "Gymnastics", image: "/img/p4.svg"},
+  { name: "Swimming", image: "/img/p5.svg"},
+  { name: "Dance", image: "/img/p6.svg" },
+  { name: "Music", image: "/img/p7.svg" },
+  { name: "Cycling", image: "/img/p8.svg"},
+  { name: "Athletics", image: "/img/p9.svg" },
   { name: "Martial Arts", image: "/img/p10.svg" },
 
   // Add the rest of the categories here...
 ];
 const Categories = () => {
+  const router = useRouter();
   return (
     <section className="py-2">
       <div className="flex justify-between items-center px-4 pb-8">
@@ -25,9 +28,11 @@ const Categories = () => {
       </div>
       <div className="px-2 sm:px-20 grid grid-cols-2  md:grid-cols-5 gap-4 0  ">
         {categories.map((category, index) => (
-          <div
+          <div onClick={()=>{
+            
+            router.push('/courses')}}
             key={index}
-            className="text-center p-4 border rounded-xl shadow-lg  hover:shadow-2xl"
+            className="text-center p-4 border rounded-xl shadow-lg  hover:shadow-2xl cursor-pointer hover:bg-blue-100"
           >
             <Image
               src={category.image}
