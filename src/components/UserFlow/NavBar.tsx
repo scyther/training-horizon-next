@@ -28,15 +28,15 @@ const Navbar = () => {
             <div>
             {/* <Link href="/Dashboard/Teacher/join_as_teacher" className="text-gray-700 hover:text-black px-3 py-2 rounded-md text-sm font-medium">
             </Link> */}
-              <Link href="/Userflow/addListing" className="bg-blue-300 text-black px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-200"> Add Listing
+              <Link href="/userflow/addListing" className="bg-blue-300 text-black px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-200"> Add Listing
               </Link>
-            <Link href="/Dashboard/Teacher/join_as_teacher" className="text-gray-700 hover:text-black px-3 py-2 rounded-md text-sm font-medium">
+            <Link href="/dashboard/teacher/join_as_teacher" className="text-gray-700 hover:text-black px-3 py-2 rounded-md text-sm font-medium">
               Join as Teacher
             </Link>
-            <Link href="/Userflow/login" className="text-gray-700 hover:text-black px-3 py-2 rounded-md text-sm font-medium">
+            <Link href="/userflow/login" className="text-gray-700 hover:text-black px-3 py-2 rounded-md text-sm font-medium">
               Log in
             </Link>
-            <Link href="/Userflow/signup" className="bg-yellow-500 text-black px-3 py-2 rounded-md text-sm font-medium hover:bg-yellow-600">
+            <Link href="/userflow/signup" className="bg-yellow-500 text-black px-3 py-2 rounded-md text-sm font-medium hover:bg-yellow-600">
               Sign Up
             </Link>
             </div>
@@ -78,14 +78,14 @@ const Navbar = () => {
           <Link href="/contact" className="text-gray-700 hover:text-black block px-3 py-2 rounded-md text-base font-medium">
             Contact
           </Link>
-          <Link href=''> Add Listing</Link>
-          <Link href="/join" className="text-gray-700 hover:text-black block px-3 py-2 rounded-md text-base font-medium">
+          <Link href='/userflow/addListing' className='text-gray-700 hover:text-black block px-3 py-2 rounded-md text-base font-medium'> Add Listing</Link>
+          <Link href="/dashboard/teacher/join_as_teacher" className="text-gray-700 hover:text-black block px-3 py-2 rounded-md text-base font-medium">
             Join as Teacher
           </Link>
-          <Link href="/login" className="text-gray-700 hover:text-black block px-3 py-2 rounded-md text-base font-medium">
+          <Link href="/userflow/login" className="text-gray-700 hover:text-black block px-3 py-2 rounded-md text-base font-medium">
             Log in
           </Link>
-          <Link href="/signup" className="bg-yellow-500 text-white block px-3 py-2 rounded-md text-base font-medium hover:bg-yellow-600">
+          <Link href="/userflow/signup" className="bg-yellow-500 text-white block px-3 py-2 rounded-md text-base font-medium hover:bg-yellow-600">
             Sign Up
           </Link>
         </div>
