@@ -1,12 +1,9 @@
 "use client"
 
 import React, { useState } from 'react';
-import SearchBar from '@/Components/listingCoursesUi/SearchBar';
-import FilterSidebar from '@/Components/listingCoursesUi/FilterSideBar';
-import ListingCard from '@/Components/listingCoursesUi/ListingCard';
-import SearchBar from '@/components/listing/SearchBar';
-import FilterSidebar from '@/components/listing/FilterSideBar';
-import ListingCard from '@/components/listing/ListingCard';
+import SearchBar from './SearchBar';
+import FilterSidebar from './FilterSideBar';
+import ListingCard from './ListingCard';
 
 interface Listing {
   title: string,
