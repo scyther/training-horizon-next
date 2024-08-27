@@ -10,7 +10,7 @@ const Footer = () => {
 
       
         <div className=" p-10">
-          <Image src="./icons/footerLogo.svg" alt="" width={200} height={120}/>
+          <Image src="/icons/footerLogo.svg" alt="" width={200} height={120}/>
         </div>
       
 
