@@ -62,9 +62,6 @@ const formSchema = z.object({
         message: "Please enter description"
     })
 })
-    const baseUrl = "http://localhost:3002";
-
-    const [isOpen, setIsOpen] = useState(false);
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -86,10 +83,19 @@ const formSchema = z.object({
     const router = useRouter()
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
-        console.log(values)
-        router.push('/')
-
-    };
+      // Retrieve existing listings from local storage
+      const existingListings = JSON.parse(localStorage.getItem('listings') || '[]');
+  
+      // Add the new listing
+      const updatedListings = [...existingListings, values];
+  
+      // Store updated listings back in local storage
+      localStorage.setItem('listings', JSON.stringify(updatedListings));
+  
+      // Redirect to the listings page
+      router.push('/dashboard/teacher/show_all_listings');
+  };
+  
 
     return (
         <div className="m-4">
@@ -185,7 +191,7 @@ const formSchema = z.object({
                         <FormItem>
                             <FormLabel>START DATE (OPTIONAL)</FormLabel>
                             <FormControl>
-                                <Input {...field} />
+                                <Input type="date" {...field} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
@@ -198,7 +204,7 @@ const formSchema = z.object({
                         <FormItem>
                             <FormLabel>END DATE (OPTIONAL)</FormLabel>
                             <FormControl>
-                                <Input {...field} />
+                                <Input type="date" {...field} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
@@ -211,7 +217,7 @@ const formSchema = z.object({
                         <FormItem>
                             <FormLabel>DAYS</FormLabel>
                             <FormControl>
-                                <Input {...field} />
+                                <Input type="number" {...field} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
@@ -254,7 +260,7 @@ const formSchema = z.object({
                         <FormItem>
                             <FormLabel>START TIME</FormLabel>
                             <FormControl>
-                                <Input {...field} />
+                                <Input type="time" {...field} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
@@ -267,7 +273,7 @@ const formSchema = z.object({
                         <FormItem>
                             <FormLabel>END TIME (OPTIONAL)</FormLabel>
                             <FormControl>
-                                <Input {...field} />
+                                <Input type="time" {...field} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
