@@ -68,7 +68,7 @@ const CategoryListingCard: React.FC<ListingCardProps> = ({
               {days}
             </p>
             <p className="text-xs text-gray-500 font-semibold">
-              {price}
+              ${price}/Month
             </p>
           </div>
           
