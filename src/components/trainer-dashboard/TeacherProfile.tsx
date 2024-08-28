@@ -13,13 +13,12 @@ interface TeacherProps {
   about: string;
   workHistory: string;
   education: string;
-  publication: string;
   linkedin: string;
-//   cardData: Array<{
-//     icon?: React.ReactNode;
-//     title: string;
-//     description: string;
-//   }>;
+  cardData: Array<{
+    icon?: React.ReactNode;
+    title: string;
+    description: string;
+  }>;
 }
 
 const TeacherProfile: React.FC = ({
@@ -32,9 +31,9 @@ const TeacherProfile: React.FC = ({
   about,
   workHistory,
   education,
-  publication,
+
   linkedin,
-  // cardData,
+  cardData,
 }: any) => {
   return (
     <div className="absolute bg-white w-full max-w-[1650px] h-auto top-[90px] left-[50%] transform -translate-x-1/2 rounded-[10px]  border-gray-300 shadow-md z-20 p-6">
@@ -46,7 +45,7 @@ const TeacherProfile: React.FC = ({
           <Image
             alt="Teacher"
             className="rounded-full h-[180px] w-[180px] md:h-[230px] md:w-[230px] mx-auto mb-5 object-cover"
-            src={imageUrl}
+            src={kirillmenko.imageUrl}
             width={230}
             height={230}
           />
@@ -63,12 +62,12 @@ const TeacherProfile: React.FC = ({
               className="size-5 mt-1"
             >
               <path
-                fill-rule="evenodd"
+                fillRule="evenodd"
                 d="m11.54 22.351.07.04.028.016a.76.76 0 0 0 .723 0l.028-.015.071-.041a16.975 16.975 0 0 0 1.144-.742 19.58 19.58 0 0 0 2.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 0 0-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 0 0 2.682 2.282 16.975 16.975 0 0 0 1.145.742ZM12 13.5a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"
-                clip-rule="evenodd"
+                clipRule="evenodd"
               />
             </svg>
-            <h3 className="text-center text-gray-400 mt-1">{location}</h3>
+            <h3 className="text-center text-gray-400 mt-1">{kirillmenko.location}</h3>
           </div>
 
           <h2 className="mt-10 font-bold">Teacher Details</h2>
@@ -83,9 +82,9 @@ const TeacherProfile: React.FC = ({
                   className="size-5 mt-0.5 mr-1"
                 >
                   <path
-                    fill-rule="evenodd"
+                    fillRule="evenodd"
                     d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z"
-                    clip-rule="evenodd"
+                    clipRule="evenodd"
                   />
                 </svg>
                 <p>Name</p>
@@ -137,8 +136,8 @@ const TeacherProfile: React.FC = ({
                   className="size-5 mt-0.5 mr-1"
                 >
                   <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
+                    fillRule="evenodd"
+                    clipRule="evenodd"
                     d="M6.66634 2.66669H9.33301C11.847 2.66669 13.1043 2.66669 13.885 3.44802C14.6663 4.22869 14.6663 5.48602 14.6663 8.00002C14.6663 10.514 14.6663 11.7714 13.885 12.552C13.1043 13.3334 11.847 13.3334 9.33301 13.3334H6.66634C4.15234 13.3334 2.89501 13.3334 2.11434 12.552C1.33301 11.7714 1.33301 10.514 1.33301 8.00002C1.33301 5.48602 1.33301 4.22869 2.11434 3.44802C2.89501 2.66669 4.15234 2.66669 6.66634 2.66669ZM8.83301 6.00002C8.83301 5.86741 8.88569 5.74024 8.97945 5.64647C9.07322 5.5527 9.2004 5.50002 9.33301 5.50002H12.6663C12.7989 5.50002 12.9261 5.5527 13.0199 5.64647C13.1137 5.74024 13.1663 5.86741 13.1663 6.00002C13.1663 6.13263 13.1137 6.25981 13.0199 6.35357C12.9261 6.44734 12.7989 6.50002 12.6663 6.50002H9.33301C9.2004 6.50002 9.07322 6.44734 8.97945 6.35357C8.88569 6.25981 8.83301 6.13263 8.83301 6.00002ZM9.49967 8.00002C9.49967 7.86741 9.55235 7.74024 9.64612 7.64647C9.73989 7.5527 9.86707 7.50002 9.99967 7.50002H12.6663C12.7989 7.50002 12.9261 7.5527 13.0199 7.64647C13.1137 7.74024 13.1663 7.86741 13.1663 8.00002C13.1663 8.13263 13.1137 8.25981 13.0199 8.35357C12.9261 8.44734 12.7989 8.50002 12.6663 8.50002H9.99967C9.86707 8.50002 9.73989 8.44734 9.64612 8.35357C9.55235 8.25981 9.49967 8.13263 9.49967 8.00002ZM10.1663 10C10.1663 9.86741 10.219 9.74024 10.3128 9.64647C10.4066 9.5527 10.5337 9.50002 10.6663 9.50002H12.6663C12.7989 9.50002 12.9261 9.5527 13.0199 9.64647C13.1137 9.74024 13.1663 9.86741 13.1663 10C13.1663 10.1326 13.1137 10.2598 13.0199 10.3536C12.9261 10.4473 12.7989 10.5 12.6663 10.5H10.6663C10.5337 10.5 10.4066 10.4473 10.3128 10.3536C10.219 10.2598 10.1663 10.1326 10.1663 10ZM7.33301 6.00002C7.33301 6.35364 7.19253 6.69278 6.94248 6.94283C6.69243 7.19288 6.3533 7.33335 5.99967 7.33335C5.64605 7.33335 5.30691 7.19288 5.05687 6.94283C4.80682 6.69278 4.66634 6.35364 4.66634 6.00002C4.66634 5.6464 4.80682 5.30726 5.05687 5.05721C5.30691 4.80716 5.64605 4.66669 5.99967 4.66669C6.3533 4.66669 6.69243 4.80716 6.94248 5.05721C7.19253 5.30726 7.33301 5.6464 7.33301 6.00002ZM5.99967 11.3334C8.66634 11.3334 8.66634 10.7367 8.66634 10C8.66634 9.26335 7.47301 8.66669 5.99967 8.66669C4.52634 8.66669 3.33301 9.26335 3.33301 10C3.33301 10.7367 3.33301 11.3334 5.99967 11.3334Z"
                     fill="#BDBDBD"
                   />
@@ -216,10 +215,6 @@ const TeacherProfile: React.FC = ({
           <div className="mt-3">
             <p className="text-lg md:text-xl font-semibold">Education</p>
             <p className="text-gray-600 mt-2">{kirillmenko.education}</p>
-          </div>
-          <div className="mt-3">
-            <p className="text-lg md:text-xl font-semibold">Publication</p>
-            <p className="text-gray-600 mt-2">{kirillmenko.publication}</p>
           </div>
           {/* <div className="flex flex-wrap justify-around mt-5">
             {cardData.map((card, index) => (
