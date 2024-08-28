@@ -1,5 +1,5 @@
 
-import Navbar from '@/components/trainer-dashboard/NavBar'
+import Navbar from '@/components/UserFlow/NavBar'
 import { AddListing } from '@/components/UserFlow/AddListing'
 import React from 'react'
 
