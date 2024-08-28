@@ -1,5 +1,6 @@
 "use client"; // Ensures the component is client-side rendered
 
+import Link from 'next/link';
 import React from 'react';
 
 // Dummy data for instructors
@@ -65,9 +66,9 @@ const InstructorCard: React.FC<{
           </div>
         </div>
         <p className="text-gray-700 mt-4">{description}</p>
-        <button className="mt-4 text-blue-600 hover:text-blue-800 text-end w-full focus:outline-none font-medium">
+        <Link className="mt-4 text-blue-600 hover:text-blue-800 text-end w-full focus:outline-none font-medium" href='/dashboard/teacher'>
           Show Full Description
-        </button>
+        </Link>
       </div>
     </div>
   );
