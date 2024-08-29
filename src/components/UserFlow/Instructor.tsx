@@ -39,7 +39,7 @@ const InstructorCard: React.FC<{
   return (
     <div className="flex flex-col md:flex-row bg-white shadow-md rounded-lg p-6 mb-6">
       {/* Profile Picture */}
-      <div className="flex-shrink-0 md:w-1/4 flex justify-center md:justify-start mb-4 md:mb-0">
+      <div className="flex-shrink-0 md:w-1/4 flex justify-center md:justify-center mb-4 md:mb-0">
         <img
           className="h-24 w-24 md:h-36 md:w-36 rounded-full object-cover"
           src={imagePath || '/path/to/default/image.jpg'} // Placeholder for now
