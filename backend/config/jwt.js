@@ -1,6 +1,5 @@
-const JWT_SECRET="training horizon"
+require('dotenv').config();
 
-// http://localhost:3005/api/v1/listing/listing
-
+const JWT_SECRET = process.env.JWT_SECRET;
 
 module.exports = JWT_SECRET;
