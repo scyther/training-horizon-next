@@ -9,47 +9,47 @@ const listingSchema= new mongoose.Schema({
     category:{
         type:String,
         required:true,
-        maxLength:15,
+        // maxLength:15,
         trim:true,
     },
     title:{
         type:String,
         required:true,
-        maxLength:30,
+        // maxLength:30,
     },
     price:{
-        type:Number,
+        type:String,
         // required:true,
-        minLength:1,
+        // minLength:1,
     },
     quantity:{
-        type:Number,
+        type:String,
         // required:true,
     },
     startDate:{
-        type:Date,
+        type:String,
         // required:true,    
     },
     endDate:{
-        type:Date,
+        type:String,
     },
     days:{
-        type:Number,
+        type:String,
         required:true,
-        minLength:1,
+        // minLength:1,
     },
     gender:{
         type:String,
         required:true,
-        maxLength:10,
+        // maxLength:10,
         trim:true,
     },
     startTime:{
-        type:Date,
+        type:String,
         // required:true,    
     },
     endTime:{
-        type:Date,
+        type:String,
         // required:true,    
     },
     ageGroup:{
@@ -60,7 +60,7 @@ const listingSchema= new mongoose.Schema({
     description:{
         type:String,
         required:true,
-        minLength:10,
+        // minLength:10,
     },
 })
 
