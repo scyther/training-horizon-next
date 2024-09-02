@@ -2,7 +2,7 @@ const express = require("express");
 const jwt=require("jsonwebtoken");
 const zod = require("zod");
 const JWT_SECRET=require("../config/jwt")
-const {Listing} = require('../models/listing')
+const {Listing} = require('../models/Listing')
 const {trainerAuthMiddleware } = require("../middleware/authMiddleware");
 // const { default: mongoose } = require("mongoose");
 

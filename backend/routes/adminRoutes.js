@@ -1,9 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const zod = require("zod");
-const { Listing } = require("../models/listing");
+const { Listing } = require("../models/Listing");
 const app = express();
-const port = 3000;
+// const port = 3000;
 
 app.use(express.json());
 app.use(bodyParser.json());
@@ -212,8 +212,8 @@ adminRouter.post('/add-pending-teacher', (req, res) => {
   res.json({ message: 'Pending teacher added', teacher: newTeacher });
 });
 
-app.listen(port, () => {
-  console.log(`Admin panel server running on http://localhost:${port}`);
-});
+// app.listen(port, () => {
+//   console.log(`Admin panel server running on http://localhost:${port}`);
+// });
 
 module.exports = adminRouter;
