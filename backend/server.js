@@ -14,6 +14,7 @@ connectDB();
 
 // all routes here
 app.use('/api/v1' , trainer_router)
+// app.use('/api/v1',rootRouter);
 
 
 app.listen(PORT, () => {
