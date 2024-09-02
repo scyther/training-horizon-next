@@ -38,7 +38,7 @@ const gender = ["Male", "Female", "Other"] as const
 const agegroup = ["5-8", "8-12" ,"13-18", "18-21", "21+"] as const
 
 const formSchema = z.object({
-    category: z.enum(categories),
+    category: z.string(),
     title: z.string().min(3, {
         message: "Enter atleast 3 character"
     }),
@@ -55,7 +55,7 @@ const formSchema = z.object({
         message: "Please enter number of days"
     }),
 
-    gender: z.enum(gender),
+    gender: z.string(),
     startTime: z.string(),
     endTime: z.string(),
     ageGroup: z.string(),
@@ -90,6 +90,21 @@ const formSchema = z.object({
       // Add the new listing
       const updatedListings = [...existingListings, values];
   
+        // post listing to server
+        try {
+            const response = await axios.post('http://localhost:3005/api/v1/listing/add-listing', values, {
+              headers: {
+                'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmQxZDM0MWQ1YTcyMGU5MGFlYTJiNjQiLCJpYXQiOjE3MjUwMjcxMzd9.hgARNbf2gVSkPVbRiglOrAoTRSSTeayjVrCqg1KhwCI`,
+                'Content-Type': 'application/json',
+              },
+            });
+        
+            return response.data;
+          } catch (error) {
+            console.error('Error posting data:', error);
+            throw error;
+          }
+
       // Store updated listings back in local storage
       localStorage.setItem('listings', JSON.stringify(updatedListings));
   
