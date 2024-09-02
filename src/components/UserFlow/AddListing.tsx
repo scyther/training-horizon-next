@@ -70,6 +70,7 @@ export function AddListing() {
   const router = useRouter();
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    
     try {
       const response = await axios.post('http://localhost:3005/api/v1/listing/add-listing', values, {
         headers: {
@@ -77,7 +78,8 @@ export function AddListing() {
           'Content-Type': 'application/json',
         },
       });
-  
+      
+      router.push('/dashboard/teacher/thankyou')
       return response.data;
     } catch (error) {
       console.error('Error posting data:', error);
