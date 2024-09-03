@@ -1,8 +1,8 @@
 {
-  "name": "index",
+  "name": "server",
   "version": "1.0.0",
-  "main": "server.jsx",
-  "script": "server.jsx",
+  "main": "server.js",
+  "script": "server.js",
   "keywords": [],
   "author": "",
   "license": "ISC",
