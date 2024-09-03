@@ -1,5 +1,5 @@
 import React from "react";
-import Card from "@/components/trainer-dashboard/Card";
+// import Card from "@/components/trainer-dashboard/Card";
 import Image from "next/image";
 import kirillmenko from "@/data/teachers/kirill"
 
@@ -14,11 +14,11 @@ interface TeacherProps {
   workHistory: string;
   education: string;
   linkedin: string;
-  cardData: Array<{
-    icon?: React.ReactNode;
-    title: string;
-    description: string;
-  }>;
+  // cardData: Array<{
+  //   icon?: React.ReactNode;
+  //   title: string;
+  //   description: string;
+  // }>;
 }
 
 const TeacherProfile: React.FC = ({
@@ -31,9 +31,8 @@ const TeacherProfile: React.FC = ({
   about,
   workHistory,
   education,
-
   linkedin,
-  cardData,
+  // cardData,
 }: any) => {
   return (
     <div className="absolute bg-white w-full max-w-[1650px] h-auto top-[90px] left-[50%] transform -translate-x-1/2 rounded-[10px]  border-gray-300 shadow-md z-20 p-6">
