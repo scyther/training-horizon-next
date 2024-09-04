@@ -53,9 +53,41 @@ const postListingSchema = zod.object({
 //can be used in listing filtering
 listingRouter.get("/listing", async function (req, res) {
   const filter = req.query.filter || "";
-  const listings = await Listing.find();
-  res.status(200).json(listings);
+  const listing = await Listing.find();
+
+  res.status(200).json({listings: listing});
+
 });
+
+listingRouter.get("/listing/:listingId", async function (req, res) {
+  // Extract the listingId from the route parameter
+  const { listingId } = req.params;
+
+  try {
+    // Fetch the listing from the database using the listingId
+    const listing = await Listing.findById(listingId);
+
+    // Check if the listing exists
+    if (!listing) {
+      return res.status(404).json({
+        message: "Listing not found",
+      });
+    }
+
+    // Return the found listing
+    res.status(200).json({
+      message: "Listing retrieved successfully",
+      listing,
+    });
+  } catch (error) {
+    // Handle any errors that occur
+    res.status(500).json({
+      message: "Error fetching listing",
+      error,
+    });
+  }
+});
+
 
 
 listingRouter.post("/add-listing",trainerAuthMiddleware,async function (req, res) {
@@ -104,6 +136,7 @@ listingRouter.post("/add-listing",trainerAuthMiddleware,async function (req, res
       res.status(200).json({
         message: "list created successfully",
         token: token,
+        listingId: listing._id
       });
     } catch (error) {
       res.status(411).json({
