@@ -26,4 +26,4 @@ module.exports = mongoose.model('Trainer', trainerSchema);
 // Index for performance improvement on email field
 // trainerSchema.index({ email: 1 });
 
-module.exports = mongoose.model("Trainer", trainerSchema); 
+// module.exports = mongoose.model("Trainer", trainerSchema); 
