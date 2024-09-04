@@ -1,4 +1,4 @@
-const mongoose = require("../config/db");
+const mongoose = require("mongoose");
 
 const listingSchema = new mongoose.Schema({
   trainerId: {
@@ -18,6 +18,12 @@ const listingSchema = new mongoose.Schema({
   },
   price: {
     type: String,
+  },
+  mode: {
+    type: String,
+  },
+  location:{
+    type: String
   },
   quantity: {
     type: String,
@@ -62,7 +68,7 @@ const listingSchema = new mongoose.Schema({
   isApproved: { type: Boolean, default: false },
 });
 
-const Listing = mongoose.model("listings", listingSchema);
+const Listing = mongoose.model("Listings", listingSchema);
 
 module.exports = {
   Listing,
