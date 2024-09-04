@@ -1,80 +1,92 @@
 "use client";
 import axios from "axios";
-
+import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import Pill from "@/components/listing/Pill";
 
 const PreviewPage = () => {
   const searchParams = useSearchParams();
   const listingId = searchParams.get("listingId");
 
+  const [listing, setListing] = useState<any>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!listingId) return;
+
+    const fetchListing = async (id: string) => {
+      try {
+        const response = await axios.get(
+          `http://localhost:3005/api/v1/listing/listing/${id}`
+        );
+        const fetchedListing = response.data.listing;
+        setListing(fetchedListing);
+      } catch (error) {
+        console.error("Error fetching listing:", error);
+        setError("Error fetching listing");
+      }
+    };
+
+    fetchListing(listingId);
+  }, [listingId]);
+
+  const handlePost = () => {
+    if (!listingId) return;
+    console.log(listingId);
+  };
+
   if (!listingId) {
     return <div>No data provided</div>;
   }
 
-  const fetchListing = async (listingId: string) => {
-    try {
-      // Send a GET request to fetch the listing
-      const response = await axios.get(`http://localhost:3005/api/v1/listing/listing/${listingId}`);
-  
-      // Extract the listing data from the response
-      const listing = response.data.listing;
-  
-      console.log('Listing retrieved successfully:', listing);
-      return listing;
-    } catch (error) {
-      console.error('Error fetching listing:');
-      throw error;
-    }
-  };
+  if (error) {
+    return <div>{error}</div>;
+  }
 
-
-  const listing = fetchListing(listingId);
-
-  const handlePost = () => {
-    // Here you can send the data to the server for approval
-    fetchListing(listingId);
-    console.log(listingId);
-  };
+  if (!listing) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="container mx-auto p-6">
-      <h1 className="text-2xl font-bold mb-4">Preview Your Listing</h1>
-
+      <div className="w-full flex items-center justify-between">
+      <h1 className="text-2xl font-bold ">Your Listing</h1>
+      <Pill text={`${!listing.isApproved ? `Pending for approval` : `Approved`}`}  color={`${!listing.isApproved ? `bg-yellow-200` : `bg-green-400`}`}/>
+      </div>
       <div className="bg-white shadow-lg rounded-lg p-6">
-        <h2 className="text-xl font-semibold mb-2">{}</h2>
+        <h2 className="text-xl font-semibold mb-2"> {listing.title}</h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
           <div>
             <p>
-              <span className="font-semibold">Category:</span>{" "}
-              {}
+              <span className="font-semibold">Category:</span> {listing.category}
             </p>
             <p>
-              <span className="font-semibold">Price:</span> ${}
+              <span className="font-semibold">Price:</span> ${listing.price}
             </p>
             <p>
-              <span className="font-semibold">Location:</span>{" "}
-              {}
+              <span className="font-semibold">Mode:</span> {listing.mode}
             </p>
             <p>
-              <span className="font-semibold">Quantity:</span>{" "}
-              {}
+              <span className="font-semibold">{listing.mode === "Offline" ? "Location" : "Zoom Link"}:</span> {listing.location}
+            </p>
+            <p>
+              <span className="font-semibold">Quantity:</span> {listing.quantity}
             </p>
           </div>
           <div>
             <p>
               <span className="font-semibold">Start Date:</span>{" "}
-              {}
+              {listing.startDate}
             </p>
             <p>
-              <span className="font-semibold">End Date:</span>{" "}
-              {}
+              <span className="font-semibold">End Date:</span> {listing.endDate}
             </p>
             <p>
-              <span className="font-semibold">Days:</span> {}
+              <span className="font-semibold">Days:</span> {listing.days}
             </p>
             <p>
-              <span className="font-semibold">Gender:</span> {}
+              <span className="font-semibold">Gender:</span> {listing.gender}
             </p>
           </div>
         </div>
@@ -83,17 +95,16 @@ const PreviewPage = () => {
           <div>
             <p>
               <span className="font-semibold">Start Time:</span>{" "}
-              {}
+              {listing.startTime}
             </p>
             <p>
-              <span className="font-semibold">End Time:</span>{" "}
-              {}
+              <span className="font-semibold">End Time:</span> {listing.endTime}
             </p>
           </div>
           <div>
             <p>
               <span className="font-semibold">Age Group:</span>{" "}
-              {}
+              {listing.ageGroup}
             </p>
           </div>
         </div>
@@ -102,18 +113,10 @@ const PreviewPage = () => {
           <p>
             <span className="font-semibold">Description:</span>
           </p>
-          <p className="whitespace-pre-line">{}</p>
+          <p className="whitespace-pre-line">{listing.description}</p>
         </div>
       </div>
 
-      <div className="flex justify-end mt-6">
-        <button
-          className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
-          onClick={handlePost}
-        >
-          Post Listing
-        </button>
-      </div>
     </div>
   );
 };

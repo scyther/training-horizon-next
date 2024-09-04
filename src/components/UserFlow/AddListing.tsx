@@ -62,6 +62,7 @@ export function AddListing() {
   });
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [selectedMode, setSelectedMode] = useState("");
   const [formValues, setFormValues] = useState<z.infer<typeof formSchema>>({
     category: "",
     title: "",
@@ -222,7 +223,10 @@ export function AddListing() {
               <FormItem>
                 <FormLabel>Mode</FormLabel>
                 <FormControl>
-                  <Select onValueChange={field.onChange} value={field.value ?? ""}>
+                  <Select onValueChange={(value) => { 
+                    field.onChange(value);
+                    setSelectedMode(value); // Update state with selected mode
+                  } } value={field.value ?? ""}>
                     <SelectTrigger className="w-full">
                       <SelectValue placeholder="Select Mode" />
                     </SelectTrigger>
@@ -248,9 +252,9 @@ export function AddListing() {
             control={form.control}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>LOCATION</FormLabel>
+                <FormLabel>{selectedMode === "Online" ? "ZOOM LINK" : "LOCATION"}</FormLabel>
                 <FormControl>
-                  <Input {...field} value={field.value ?? ""} />
+                <Input {...field} value={field.value ?? ""} placeholder={selectedMode === "Online" ? "Enter Zoom link" : "Enter location"} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
