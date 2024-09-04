@@ -137,6 +137,15 @@ export function AddListing() {
   };
 
   const handleSubmit = () => {
+    handleDateChange();
+
+  // Check if there are any validation errors
+  const hasErrors = form.formState.errors.startDate || form.formState.errors.endDate;
+  
+  if (hasErrors) {
+    // If there are errors, do not submit
+    return;
+  }
     form.handleSubmit(onSubmit)();
     setIsDialogOpen(false);
   };
