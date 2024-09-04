@@ -1,20 +1,39 @@
 "use client";
+import axios from "axios";
 
 import { useSearchParams } from "next/navigation";
 
 const PreviewPage = () => {
   const searchParams = useSearchParams();
-  const data = searchParams.get("data");
+  const listingId = searchParams.get("listingId");
 
-  if (!data) {
+  if (!listingId) {
     return <div>No data provided</div>;
   }
 
-  const parsedData = JSON.parse(data);
+  const fetchListing = async (listingId: string) => {
+    try {
+      // Send a GET request to fetch the listing
+      const response = await axios.get(`http://localhost:3005/api/v1/listing/listing/${listingId}`);
+  
+      // Extract the listing data from the response
+      const listing = response.data.listing;
+  
+      console.log('Listing retrieved successfully:', listing);
+      return listing;
+    } catch (error) {
+      console.error('Error fetching listing:');
+      throw error;
+    }
+  };
+
+
+  const listing = fetchListing(listingId);
 
   const handlePost = () => {
     // Here you can send the data to the server for approval
-    console.log(parsedData);
+    fetchListing(listingId);
+    console.log(listingId);
   };
 
   return (
@@ -22,40 +41,40 @@ const PreviewPage = () => {
       <h1 className="text-2xl font-bold mb-4">Preview Your Listing</h1>
 
       <div className="bg-white shadow-lg rounded-lg p-6">
-        <h2 className="text-xl font-semibold mb-2">{parsedData.title}</h2>
+        <h2 className="text-xl font-semibold mb-2">{}</h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
           <div>
             <p>
               <span className="font-semibold">Category:</span>{" "}
-              {parsedData.category}
+              {}
             </p>
             <p>
-              <span className="font-semibold">Price:</span> ${parsedData.price}
+              <span className="font-semibold">Price:</span> ${}
             </p>
             <p>
               <span className="font-semibold">Location:</span>{" "}
-              {parsedData.location}
+              {}
             </p>
             <p>
               <span className="font-semibold">Quantity:</span>{" "}
-              {parsedData.quantity}
+              {}
             </p>
           </div>
           <div>
             <p>
               <span className="font-semibold">Start Date:</span>{" "}
-              {parsedData.startDate}
+              {}
             </p>
             <p>
               <span className="font-semibold">End Date:</span>{" "}
-              {parsedData.endDate}
+              {}
             </p>
             <p>
-              <span className="font-semibold">Days:</span> {parsedData.days}
+              <span className="font-semibold">Days:</span> {}
             </p>
             <p>
-              <span className="font-semibold">Gender:</span> {parsedData.gender}
+              <span className="font-semibold">Gender:</span> {}
             </p>
           </div>
         </div>
@@ -64,17 +83,17 @@ const PreviewPage = () => {
           <div>
             <p>
               <span className="font-semibold">Start Time:</span>{" "}
-              {parsedData.startTime}
+              {}
             </p>
             <p>
               <span className="font-semibold">End Time:</span>{" "}
-              {parsedData.endTime}
+              {}
             </p>
           </div>
           <div>
             <p>
               <span className="font-semibold">Age Group:</span>{" "}
-              {parsedData.ageGroup}
+              {}
             </p>
           </div>
         </div>
@@ -83,7 +102,7 @@ const PreviewPage = () => {
           <p>
             <span className="font-semibold">Description:</span>
           </p>
-          <p className="whitespace-pre-line">{parsedData.description}</p>
+          <p className="whitespace-pre-line">{}</p>
         </div>
       </div>
 
