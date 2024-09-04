@@ -31,15 +31,17 @@ export function AddListing() {
   const categories = ["Basketball", "Table Tennis", "Yoga", "Other"] as const;
   const gender = ["Male", "Female", "Other"] as const;
   const agegroup = ["5-8", "8-12", "13-18", "18-21", "21+"] as const;
+  const mode = ["Offline", "Online"] as const;
 
   const formSchema = z.object({
     category: z.string(),
     title: z.string(),
     price: z.string(),
+    mode: z.string(),
     location: z.string(),
     quantity: z.string().optional(),
-    startDate: z.string().optional(),
-    endDate: z.string().optional(),
+    startDate: z.string(),
+    endDate: z.string(),
     days: z.string(),
     gender: z.string(),
     startTime: z.string().optional(),
@@ -51,35 +53,27 @@ export function AddListing() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: "",
-      price: "",
-      location: "",
       quantity: "",
-      startDate: "",
-      endDate: "",
-      days: "",
       startTime: "",
       endTime: "",
-      description: "",
-    },
+    }
   });
 
-  const [isOnline, setIsOnline] = useState(false);
+  const [currentMode, setCurrentMode] = useState("");
   const [daysCount, setDaysCount] = useState(0);
 
   const router = useRouter();
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    
     try {
       const response = await axios.post('http://localhost:3005/api/v1/listing/add-listing', values, {
         headers: {
-          'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmQxZDM0MWQ1YTcyMGU5MGFlYTJiNjQiLCJpYXQiOjE3MjUwMjcxMzd9.hgARNbf2gVSkPVbRiglOrAoTRSSTeayjVrCqg1KhwCI`,
+          'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmQxZDM0MWQ1YTcyMGU5MGFlYTJiNjQiLCJpYXQiOjE3MjU0MDgyODJ9.YH3aJtElSKnWsacQtGDrriUhZAwlNcjkDOhUAK49WIY`,
           'Content-Type': 'application/json',
         },
       });
-      
-      router.push('/dashboard/teacher/thankyou')
+      // router.push(`/dashboard/teacher/preview?data=${encodeURIComponent(JSON.stringify(values))}`);
+      // router.push('/dashboard/teacher/thankyou')
       return response.data;
     } catch (error) {
       console.error('Error posting data:', error);
@@ -136,7 +130,7 @@ export function AddListing() {
               <FormItem>
                 <FormLabel>CATEGORY</FormLabel>
                 <FormControl>
-                  <Select onValueChange={field.onChange} value={field.value}>
+                  <Select onValueChange={field.onChange} value={field.value ?? ""}>
                     <SelectTrigger className="w-full">
                       <SelectValue placeholder="Select a category" />
                     </SelectTrigger>
@@ -164,7 +158,7 @@ export function AddListing() {
               <FormItem>
                 <FormLabel>TITLE</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} value={field.value ?? ""} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -178,7 +172,35 @@ export function AddListing() {
               <FormItem>
                 <FormLabel>PRICE</FormLabel>
                 <FormControl>
-                  <Input type="number" {...field} />
+                  <Input type="number" {...field} value={field.value ?? ""}/>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          {/* Mode Field */}
+          <FormField
+            name="mode"
+            control={form.control}
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Mode</FormLabel>
+                <FormControl>
+                  <Select onValueChange={field.onChange} value={field.value ?? ""}>
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Select Mode" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        <SelectLabel>Mode</SelectLabel>
+                        {mode.map((mode) => (
+                          <SelectItem key={mode} value={mode}>
+                            {mode}
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -192,7 +214,7 @@ export function AddListing() {
               <FormItem>
                 <FormLabel>LOCATION</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} value={field.value ?? ""}/>
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -206,7 +228,7 @@ export function AddListing() {
               <FormItem>
                 <FormLabel>QUANTITY (OPTIONAL)</FormLabel>
                 <FormControl>
-                  <Input type="number" {...field} />
+                  <Input type="number" {...field} value={field.value}/>
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -218,9 +240,9 @@ export function AddListing() {
             control={form.control}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>START DATE (OPTIONAL)</FormLabel>
+                <FormLabel>START DATE</FormLabel>
                 <FormControl>
-                  <Input type="date" {...field} onChange={field.onChange} />
+                  <Input type="date" {...field} onChange={field.onChange} value={field.value ?? ""}/>
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -232,9 +254,9 @@ export function AddListing() {
             control={form.control}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>END DATE (OPTIONAL)</FormLabel>
+                <FormLabel>END DATE</FormLabel>
                 <FormControl>
-                  <Input type="date" {...field} onChange={field.onChange} />
+                  <Input type="date" {...field} onChange={field.onChange} value={field.value ?? ""}/>
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -248,7 +270,7 @@ export function AddListing() {
               <FormItem>
                 <FormLabel>DAYS</FormLabel>
                 <FormControl>
-                  <Input type="number" readOnly {...field} />
+                  <Input type="number" readOnly {...field} value={field.value ?? ""}/>
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -262,7 +284,7 @@ export function AddListing() {
               <FormItem>
                 <FormLabel>GENDER</FormLabel>
                 <FormControl>
-                  <Select onValueChange={field.onChange} value={field.value}>
+                  <Select onValueChange={field.onChange} value={field.value ?? ""}>
                     <SelectTrigger className="w-full">
                       <SelectValue placeholder="Select Gender" />
                     </SelectTrigger>
@@ -288,9 +310,9 @@ export function AddListing() {
             control={form.control}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>START TIME</FormLabel>
+                <FormLabel>START TIME (OPTIONAL)</FormLabel>
                 <FormControl>
-                  <Input type="time" {...field} />
+                  <Input type="time" {...field} value={field.value}/>
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -304,7 +326,7 @@ export function AddListing() {
               <FormItem>
                 <FormLabel>END TIME (OPTIONAL)</FormLabel>
                 <FormControl>
-                  <Input type="time" {...field} />
+                  <Input type="time" {...field} value={field.value}/>
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -318,7 +340,7 @@ export function AddListing() {
               <FormItem>
                 <FormLabel>AGE GROUP</FormLabel>
                 <FormControl>
-                  <Select onValueChange={field.onChange} value={field.value}>
+                  <Select onValueChange={field.onChange} value={field.value ?? ""}>
                     <SelectTrigger className="w-full">
                       <SelectValue placeholder="Select age group" />
                     </SelectTrigger>
@@ -346,7 +368,7 @@ export function AddListing() {
               <FormItem>
                 <FormLabel>DESCRIPTION</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} value={field.value ?? ""}/>
                 </FormControl>
                 <FormMessage />
               </FormItem>
