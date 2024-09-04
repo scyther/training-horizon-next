@@ -4,7 +4,8 @@ const { z } = require("zod");
 
 // zod validation schema
 const trainerSchema = z.object({
-  name: z.string().min(1, "Name is required"),
+  fname: z.string().min(1, "FName is required"),
+  lname: z.string().min(1, "LName is required"),
   qualifications: z.string().optional(),
   specialties: z.array(z.string()).optional(),
   availability: z.array(z.string()).min(1),

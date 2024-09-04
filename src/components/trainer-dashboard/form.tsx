@@ -16,16 +16,20 @@ import {
   FormMessage,
 } from "@/components/trainer-dashboard/ui/form";
 import { Input } from "@/components/trainer-dashboard/ui/input";
-import JobDetailForm from "./jobDetailForm";
 import { Label } from "./ui/label";
 import Popup from "./PopUp";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card'
+import Image from 'next/image'
 
 export function TrainerForm() {
   const [popupVisible, setPopupVisible] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
   const formSchema = z.object({
-    name: z.string().min(3, {
-      message: "Enter at least 3 characters for the name",
+    fname: z.string().min(3, {
+      message: "Enter at least 3 characters",
+    }),
+    lname: z.string().min(3, {
+      message: "Enter at least 3 characters",
     }),
     qualifications: z.string().min(1, {
       message: "Please enter your qualifications",
@@ -48,13 +52,14 @@ export function TrainerForm() {
     availability: z.array(z.string()).optional(),
     password: z.string().min(1, {
       message: "Please enter a valid password",
-    }) 
+    })
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
+      fname: "",
+      lname: "",
       qualifications: "",
       linkedin: "",
       experience: "",
@@ -94,20 +99,37 @@ export function TrainerForm() {
         <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-1">
           <div className="grid grid-cols-2 w-full gap-2 max-[769px]:grid-cols-1">
             <div>
-              <div className="flex max-sm:flex-col">
-                <FormField
-                  name="name"
-                  control={form.control}
-                  render={({ field }) => (
-                    <FormItem className="mr-2">
-                      <FormLabel>Name</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Enter your name" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+              <div className="flex gap-2 w-full max-sm:flex-col">
+                <div className="flex w-1/2 max-sm:w-full">
+                  <FormField
+                    name="fname"
+                    control={form.control}
+                    render={({ field }) => (
+                      <FormItem className="w-full">
+                        <FormLabel>First Name</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Enter first name" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+                <div className="flex w-1/2 max-sm:w-full">
+                  <FormField
+                    name="lname"
+                    control={form.control}
+                    render={({ field }) => (
+                      <FormItem className=" w-full">
+                        <FormLabel>Last Name</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Enter last name" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
               </div>
               <FormField
                 name="qualifications"
@@ -190,6 +212,21 @@ export function TrainerForm() {
               />
             </div>
             <div>
+              <div className='flex justify-center'>
+                <Card className="w-full">
+                  <CardContent className='h-full pt-2 w-full '>
+                    <div className='w-full flex justify-center'>
+                      <Image src={'/img/profile.png'}
+                        alt='map'
+                        width={150}
+                        height={150}
+                      />
+                    </div>
+                    <div className='py-2 flex text-xs w-full justify-center'>Upload your photo</div>
+                    <Button className=' w-full' size={'sm'} type='button' variant={'outline'}>Select from Computer</Button>
+                  </CardContent>
+                </Card>
+              </div>
               <FormField
                 name="address"
                 control={form.control}
@@ -203,6 +240,24 @@ export function TrainerForm() {
                   </FormItem>
                 )}
               />
+
+              {/* <Card>
+                <CardHeader>
+                  <CardTitle>
+                    See near your location
+                  </CardTitle>
+                  <CardDescription>Northern Street, Chicago, United States</CardDescription>
+                </CardHeader>
+                <CardContent>
+
+                  <Image src={'/img/basemap.png'}
+                    alt='map'
+                    width={300}
+                    height={200}
+                  />
+                </CardContent>
+              </Card> */}
+
               {/* <FormField
                 name="availability"
                 control={form.control}
@@ -216,8 +271,9 @@ export function TrainerForm() {
                   </FormItem>
                 )}
               /> */}
-              <JobDetailForm />
+              {/* <JobDetailForm /> */}
             </div>
+
           </div>
           <div className="flex justify-between py-4">
             <Button variant={"outline"} type="button">Cancel</Button>
