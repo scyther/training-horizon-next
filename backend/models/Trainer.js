@@ -2,7 +2,8 @@ const mongoose = require("mongoose");
 const { boolean } = require("zod");
 
 const trainerSchema = new mongoose.Schema({
-  name: { type: String, required: true },
+  fname: { type: String, required: true },
+  lname: { type: String, required: true },
   qualifications: { type: String, required: true },
   linkedin: { type: String, required: true },
   experience: { type: String, required: true },

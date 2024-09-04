@@ -4,7 +4,8 @@ const jwt = require("jsonwebtoken");
 const { z } = require("zod");
 
 const signUpSchema = z.object({
-  name: z.string().min(1, "Name is required"),
+  fname: z.string().min(1, "Name is required"),
+  lname: z.string().min(1, "Name is required"),
   qualifications: z.string().min(1, "Qualifications are required"),
   linkedin: z.string().url("Invalid LinkedIn URL"),
   experience: z.string().min(1, "Experience is required"),
