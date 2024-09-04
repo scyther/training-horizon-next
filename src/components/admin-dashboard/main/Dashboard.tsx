@@ -1,6 +1,89 @@
 import React from "react";
+import { useState,useEffect } from "react";
+import axios from 'axios';
+import { AgGridReact } from 'ag-grid-react'; // React Data Grid Component
+import "ag-grid-community/styles/ag-grid.css"; // Mandatory CSS required by the Data Grid
+import "ag-grid-community/styles/ag-theme-quartz.css"; // Optional Theme applied to the Data Grid
+import { ColDef , ICellRendererParams } from 'ag-grid-community';
+
 
 const Dashboard = () => {
+
+
+  const [rowData, setRowData] = useState<{ fname: string; lname: string; email: string; phone: string; }[]>([]);
+  const [colDefs, setColDefs] = useState<ColDef[]>([
+    { headerName:"Name", valueGetter: params => `${params.data.fname} ${params.data.lname}`  ,  headerClass:"font-bold border p-2 font-bold  text-md"},
+    { headerName:"Email" , field: "email" , headerClass:"font-bold border p-2 font-bold  text-md"},
+    { headerName:"Phone" , field: "phone" , headerClass:"font-bold border p-2 font-bold  text-md" },
+    { headerName:"Action" , field: "action" ,  headerClass:"font-bold border p-2 font-bold  text-md",
+      cellRenderer:(data:ICellRendererParams)=> <div className="flex gap-8">
+      <button className='text-xl' onClick={() => handleApproveTrainer(data.data._id,data.data.email)}>✔</button>
+      <button className='text-xl' onClick={() => handleRejectTrainer(data.data._id,data.data.email)}>✖</button>
+    </div>},
+  ])
+
+  const [rowData2, setRowData2] = useState<{ title: string; price: string; location: string; mode: string; }[]>([]);
+  const [colDefs2, setColDefs2] = useState<ColDef[]>([
+    { headerName:"Title",  field:"title"  ,  headerClass:"font-bold border p-2 font-bold  text-md"},
+    { headerName:"Price" , field: "price" , headerClass:"font-bold border p-2 font-bold  text-md"},
+    { headerName:"Location" , field: "location" , headerClass:"font-bold border p-2 font-bold  text-md" },
+    // { headerName:"Mode" , field: "mode" , headerClass:"font-bold border p-2 font-bold  text-md" },
+    { headerName:"Action" , field: "action" ,  headerClass:"font-bold border p-2 font-bold  text-md",
+      cellRenderer:(data:ICellRendererParams)=> <div className="flex gap-8">
+      <button className='text-xl' onClick={() => handleApproveListing(data.data._id,data.data.title)}>✔</button>
+      <button className='text-xl' onClick={() => handleRejectListing(data.data._id,data.data.title)}>✖</button>
+    </div>},
+  ])
+
+ const handleRejectTrainer = async (trainerID:string,trainerEmail:string) => {
+   const response = await axios.delete('http://localhost:3005/api/v1/admin/discard-trainer/'+ trainerID.toString());
+  //  console.log(response.data);
+   setRowData(prevData => prevData.filter(row => row.email != trainerEmail))
+ }
+
+ const handleApproveTrainer = async (trainerID:string,trainerEmail:string) =>{
+    // console.log(trainerID);
+    const response = await axios.post('http://localhost:3005/api/v1/admin/approve-trainer/'+ trainerID.toString());
+    // console.log(response.data);
+     setRowData(prevData => prevData.filter(row => row.email != trainerEmail))
+ }
+
+
+ const handleRejectListing = async (listingId:string,listingTitle:string) => {
+  const response = await axios.delete('http://localhost:3005/api/v1/admin/discard-listing/'+ listingId.toString());
+  //  console.log(response.data);
+   setRowData2(prevData => prevData.filter(row => row.title != listingTitle))
+ }
+
+
+ const handleApproveListing = async (listingId:string,listingTitle:string) =>{
+  // console.log(listingId);
+  const response = await axios.post('http://localhost:3005/api/v1/admin/approve-listing/'+ listingId.toString());
+  // console.log(response.data);
+   setRowData2(prevData => prevData.filter(row => row.title != listingTitle))
+}
+  
+  useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const response = await axios.get('http://localhost:3005/api/v1/admin/pending-trainers');
+      const res = await axios.get('http://localhost:3005/api/v1/admin/pending-listings');
+      // console.log(response.data.pendingTrainers);
+      // if(Array.isArray(response.data.data))
+      setRowData(response.data.pendingTrainers)
+      setRowData2(res.data.pendingListings);
+      // else{ console.log("not an array")}
+    } catch (error) {
+     console.log("error");
+    } 
+  };
+  fetchData();
+  }, []); 
+
+  
+
+
+
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       <div className=" mb-6 flex justify-between items-center">
@@ -60,119 +143,11 @@ const Dashboard = () => {
 
       <div className="grid grid-cols-3 gap-4 mb-6">
         <div className="col-span-2 bg-white rounded-lg shadow p-4">
-          <h3 className="text-lg font-semibold mb-4">Recent Transaction</h3>
+          <h3 className="text-lg font-semibold mb-4">Pending Trainers</h3>
           <div className="overflow-y-auto h-64">
-            <table className="w-full text-left">
-              <thead className="sticky top-0 bg-white">
-                <tr>
-                  <th className="p-2">S.No</th>
-                  <th className="p-2">User name</th>
-                  <th className="p-2">Batch name</th>
-                  <th className="p-2">Teacher name</th>
-                  <th className="p-2">Amount</th>
-                  <th className="p-2">Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr className="border-t">
-                  <td className="p-2">1</td>
-                  <td className="py-2 flex items-center space-x-2">
-                    <img
-                      src="/img/dashboard/image.svg"
-                      alt="image"
-                      height={40}
-                      width={40}
-                    />
-                    <span>Devon Laratte</span>
-                  </td>
-                  <td className="py-2">Implementing SAFe</td>
-                  <td className="py-2">Mr. Adrian Daren & Rutherford..</td>
-                  <td className="py-2">$30.00</td>
-                  <td className="py-2 text-green-500">Success</td>
-                </tr>
-                <tr className="border-t bg-blue-50">
-                  <td className="p-2">2</td>
-                  <td className="py-2 flex items-center space-x-2">
-                    <img
-                      src="/img/dashboard/image.svg"
-                      alt="image"
-                      height={40}
-                      width={40}
-                    />
-                    <span>Customer id #99373738383</span>
-                  </td>
-                  <td className="py-2">Implementing SAFe</td>
-                  <td className="py-2">Mr. Adrian Daren & Rutherford..</td>
-                  <td className="py-2">$30.00</td>
-                  <td className="py-2 text-red-500">Failed</td>
-                </tr>
-                {/* Repeat more rows as needed */}
-                <tr className="border-t bg-blue-50">
-                  <td className="p-2">3</td>
-                  <td className="py-2 flex items-center space-x-2">
-                    <img
-                      src="/img/dashboard/image.svg"
-                      alt="image"
-                      height={40}
-                      width={40}
-                    />
-                    <span>Customer id #99373738383</span>
-                  </td>
-                  <td className="py-2">Implementing SAFe</td>
-                  <td className="py-2">Mr. Adrian Daren & Rutherford..</td>
-                  <td className="py-2">$30.00</td>
-                  <td className="py-2 text-red-500">Failed</td>
-                </tr>
-                <tr className="border-t bg-blue-50">
-                  <td className="p-2">4</td>
-                  <td className="py-2 flex items-center space-x-2">
-                    <img
-                      src="/img/dashboard/image.svg"
-                      alt="image"
-                      height={40}
-                      width={40}
-                    />
-                    <span>Customer id #99373738383</span>
-                  </td>
-                  <td className="py-2">Implementing SAFe</td>
-                  <td className="py-2">Mr. Adrian Daren & Rutherford..</td>
-                  <td className="py-2">$30.00</td>
-                  <td className="py-2 text-red-500">Failed</td>
-                </tr>
-                <tr className="border-t bg-blue-50">
-                  <td className="p-2">5</td>
-                  <td className="py-2 flex items-center space-x-2">
-                    <img
-                      src="/img/dashboard/image.svg"
-                      alt="image"
-                      height={40}
-                      width={40}
-                    />
-                    <span>Customer id #99373738383</span>
-                  </td>
-                  <td className="py-2">Implementing SAFe</td>
-                  <td className="py-2">Mr. Adrian Daren & Rutherford..</td>
-                  <td className="py-2">$30.00</td>
-                  <td className="py-2 text-red-500">Failed</td>
-                </tr>
-                <tr className="border-t bg-blue-50">
-                  <td className="p-2">6</td>
-                  <td className="py-2 flex items-center space-x-2">
-                    <img
-                      src="/img/dashboard/image.svg"
-                      alt="image"
-                      height={40}
-                      width={40}
-                    />
-                    <span>Customer id #99373738383</span>
-                  </td>
-                  <td className="py-2">Implementing SAFe</td>
-                  <td className="py-2">Mr. Adrian Daren & Rutherford..</td>
-                  <td className="py-2">$30.00</td>
-                  <td className="py-2 text-red-500">Failed</td>
-                </tr>
-              </tbody>
-            </table>
+                   <div className="ag-theme-quartz " style={{ height: '100%' , width: '100%'}}>
+                        <AgGridReact rowData={rowData || []}  columnDefs={colDefs} />
+                   </div>   
           </div>
         </div>
 
@@ -214,7 +189,16 @@ const Dashboard = () => {
             Manage Reactions
           </button>
         </div>
+        <div className="col-span-2 bg-white rounded-lg shadow p-4">
+          <h3 className="text-lg font-semibold mb-4">Pending Listings</h3>
+          <div className="overflow-y-auto h-64">
+                   <div className="ag-theme-quartz " style={{ height: '100%' , width: '100%'}}>
+                        <AgGridReact rowData={rowData2 || []}  columnDefs={colDefs2} />
+                   </div>   
+          </div>
+        </div>
       </div>
+      
 
       <div className="grid grid-cols-3 gap-4">
         <div className="bg-white rounded-lg shadow p-4">
@@ -250,7 +234,7 @@ const Dashboard = () => {
           </div>
         </div>
 
-        <div className="bg-white rounded-lg shadow p-4">
+        {/* <div className="bg-white rounded-lg shadow p-4">
           <h3 className="text-lg font-semibold mb-4">Top Trainers</h3>
           <ul>
             <li className="flex items-center justify-between py-2">
@@ -265,12 +249,12 @@ const Dashboard = () => {
               </div>
               <div className="text-yellow-500">⭐ 4.7/5.0 (8,006)</div>
             </li>
-            {/* Repeat more items as needed */}
+
           </ul>
           <button className="mt-4 w-full bg-[#17A8FC] text-white py-2 rounded-lg hover:bg-blue-600">
             View all
           </button>
-        </div>
+        </div> */}
       </div>
     </div>
   );

@@ -56,6 +56,7 @@ listingRouter.get("/listing", async function (req, res) {
   const listing = await Listing.find();
 
   res.status(200).json({listings: listing});
+
 });
 
 listingRouter.get("/listing/:listingId", async function (req, res) {

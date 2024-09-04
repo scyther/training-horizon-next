@@ -87,7 +87,7 @@ function Sidebar() {
         </ul>
       </nav>
 
-      <div className="bg-white shadow-lg rounded-lg hover:shadow-xl hover:bg-blue-50 mt-4 p-4 w-56">
+      {/* <div className="bg-white shadow-lg rounded-lg hover:shadow-xl hover:bg-blue-50 mt-4 p-4 w-56">
         <div className="flex flex-col items-start">
           <div className="flex items-center justify-between bg-[#17A8FC] w-full rounded-lg py-1 px-2 mb-2">
             <span className="bg-[#17A8FC] text-white text-sm font-semibold ">
@@ -163,10 +163,10 @@ function Sidebar() {
             </button>
           </div>
         </div>
-      </div>
+      </div> */}
       <nav>
         <ul>
-          <li className="mb-2 mt-2">
+          <li className="mb-2 mt-2 w-48">
             <button
               onClick={() => handleClick("Account Setting")}
               className={`flex flex-row rounded-lg w-full p-2 ${
