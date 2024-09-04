@@ -54,7 +54,6 @@ const postListingSchema = zod.object({
 listingRouter.get("/listing", async function (req, res) {
   const filter = req.query.filter || "";
   const listings = await Listing.find();
-
   res.status(200).json(listings);
 });
 

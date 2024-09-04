@@ -24,7 +24,7 @@ router.get('/pending-listings' , ac.getPendingListings);
 router.post('/approve-listing/:id' , ac.approvePendingLsitings);
 
 // Route to discard a pending course
-router.delete('/discard-lisitng/:id' , ac.discardPendingListings );
+router.delete('/discard-listing/:id' , ac.discardPendingListings );
 
 // Route to view all teachers
 router.get('/trainers', ac.getTrainers);
