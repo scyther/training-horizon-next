@@ -13,10 +13,11 @@ const getListingSchema = zod.object({
   category: zod.string(),
   title: zod.string(),
   price: zod.string(),
+  mode: zod.string().optional(),
   location: zod.string(),
   quantity: zod.string().optional(),
-  startDate: zod.string().optional(),
-  endDate: zod.string().optional(),
+  startDate: zod.string(),
+  endDate: zod.string(),
   days: zod.string(),
   gender: zod.string(),
   startTime: zod.string().optional(),
@@ -28,10 +29,11 @@ const postListingSchema = zod.object({
   category: zod.string(),
   title: zod.string(),
   price: zod.string(),
+  mode: zod.string().optional(),
   location: zod.string(),
   quantity: zod.string().optional(),
-  startDate: zod.string().optional(),
-  endDate: zod.string().optional(),
+  startDate: zod.string(),
+  endDate: zod.string(),
   days: zod.string(),
   gender: zod.string(),
   startTime: zod.string(),
@@ -51,41 +53,11 @@ const postListingSchema = zod.object({
 //can be used in listing filtering
 listingRouter.get("/listing", async function (req, res) {
   const filter = req.query.filter || "";
-  const listings = await Listing.find({
-    $or: [
-      {
-        category: {
-          $regex: filter,
-        },
-      },
-      {
-        title: {
-          $regex: filter,
-        },
-      },
-    ],
-  });
+  const listings = await Listing.find();
 
-  res.status(200).json({
-    user: listings.map((listing) => ({
-      listId: listing._id,
-      trainerId: listing.trainerId,
-      category: listing.category,
-      title: listing.title,
-      price: listing.price,
-      location: listing.location,
-      quantity: listing.quantity,
-      startDate: listing.startDate,
-      endDate: listing.endDate,
-      days: listing.days,
-      gender: listing.gender,
-      startTime: listing.startTime,
-      endTime: listing.endTime,
-      ageGroup: listing.ageGroup,
-      description: listing.description,
-    })),
-  });
+  res.status(200).json(listings);
 });
+
 
 listingRouter.post("/add-listing",trainerAuthMiddleware,async function (req, res) {
     const inputFromTrainer = {
@@ -93,6 +65,7 @@ listingRouter.post("/add-listing",trainerAuthMiddleware,async function (req, res
       category: req.body.category,
       title: req.body.title,
       price: req.body.price,
+      mode: req.body.mode,
       location: req.body.location,
       quantity: req.body.quantity,
       startDate: req.body.startDate,
