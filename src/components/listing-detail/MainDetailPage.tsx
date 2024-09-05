@@ -1,7 +1,26 @@
+"use client"
+import { useSelector } from 'react-redux';
+import { RootState } from '@/lib/store/store';
+interface ChildComponentProps {
+  category: string;
+  title: string;
+  price: number;
+  mode: string;
+  location: string;
+  quantity: number;
+  startDate: string;
+  endDate: string;
+  days: string;
+  gender: string;
+  startTime: string;
+  endTime: string;
+  ageGroup: string;
+  description: string;
+}
 
-function MainDetailPage() {
+const  MainDetailPage = ()  =>{
   const tabs = ["Overview", "Instructors", "Curriculum", "Reviews", "FAQs"];
-
+  const form = useSelector((state: RootState) => state.form);
   return (
     <>
         {/* Left Section: Image or Icon */}
@@ -18,15 +37,11 @@ function MainDetailPage() {
         {/* Middle Section: Course Info */}
         <div className="flex-grow">
           <span className="bg-[#17A8FC] text-white p-1.5 rounded-3xl">
-            Education
+            {form.category}
           </span>
-          <h2 className="text-2xl font-bold mt-2">Mathematics</h2>
+          <h2 className="text-2xl font-bold mt-2">{form.title}</h2>
           <p className="text-gray-600 mt-2">
-            Mathematics is one of the most important subjects. Mathematics is a
-            subject of numbers, shapes, data, measurements and also logical
-            activities. It has a huge scope in every field of our life, such as
-            medicine, engineering, finance, natural science, economics, etc. We
-            are all surrounded by a mathematical world.
+            {form.description}
           </p>
           <div className="mt-4 flex space-x-6 text-sm text-gray-600">
             <span>50+ People Enrolled</span>
@@ -35,7 +50,7 @@ function MainDetailPage() {
           </div>
           <div className="m-8">
             <button className="bg-[#17A8FC] text-white py-3 px-8 rounded mb-8 hover:bg-[#1782fc] shadow-xl">
-              Learn Mathematics with Best Teachers
+              Learn {form.category}
             </button>
           </div>
         </div>

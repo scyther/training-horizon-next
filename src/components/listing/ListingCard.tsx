@@ -2,25 +2,26 @@
 
 import React from "react";
 import { useRouter } from "next/navigation";
-
 import { useState } from "react";
 import Pill from "@/components/listing/Pill";
+import { useDispatch } from "react-redux";
+import { setForm } from "@/lib/store/formSlice";
 
 interface ListingCardProps {
-  category: string,
-  title: string,
-  price: string,
-  mode: string,
-  location: string,
-  quantity: string,
-  startDate: string,
-  endDate:string,
-  days: string,
-  gender:string,
-  startTime:string,
-  endTime:string,
-  ageGroup: string,
-  description:string,
+  category: string;
+  title: string;
+  price: string;
+  mode: string;
+  location: string;
+  quantity: string;
+  startDate: string;
+  endDate: string;
+  days: string;
+  gender: string;
+  startTime: string;
+  endTime: string;
+  ageGroup: string;
+  description: string;
 }
 
 const ListingCard: React.FC<ListingCardProps> = ({
@@ -40,20 +41,49 @@ const ListingCard: React.FC<ListingCardProps> = ({
   description,
 }) => {
   const [isSelecetd, setIsSeleceted] = useState<boolean>(false);
-
+  const dispatch = useDispatch();
   const handleOnClick = () => {
     setIsSeleceted(!isSelecetd);
   };
-
   const router = useRouter();
 
+  const sendData = () => {
+    dispatch(
+      setForm({
+        category,
+        title,
+        price,
+        mode,
+        location,
+        quantity,
+        startDate,
+        endDate,
+        days,
+        gender,
+        startTime,
+        endTime,
+        ageGroup,
+        description,
+      })
+    );
+  };
+
   return (
-    <div className="flex-col max-sm:w-10/12 mx-4 rounded-2xl overflow-hidden hover:shadow-2xl shadow-lg bg-sky-400 w-full h-[22rem] "
-    onClick={() => router.push("/courses/ListingDetail")}>
+    <div
+      className="flex-col max-sm:w-10/12 mx-4 rounded-2xl overflow-hidden hover:shadow-2xl shadow-lg bg-sky-400 w-full h-[22rem] "
+      onClick={
+        () =>{
+          sendData()
+         router.push(
+        "/courses/ListingDetail"
+        )
+        }
+      }
+    >
       <div className=" rounded-b-2xl bg-white px-2">
         <div className="flex px-4 py-4">
           <img
-            src={'/img/cricket.png'}
+            src={"/img/cricket.png"}
             alt={title}
             className="h-32 w-24 object-contain"
           />
@@ -78,11 +108,13 @@ const ListingCard: React.FC<ListingCardProps> = ({
           </div>
           <h3 className="text-xl pt-1 font-semibold">{title}</h3>
           <p className="text-xs text-gray-500 font-semibold">
-            start:{startDate} <br />end:{endDate}
+            start:{startDate} <br />
+            {/* end:{endDate} */}
           </p>
-          <p className="text-xs text-gray-700 py-3">
-            {description}
-          </p>
+          <p className="text-xs text-gray-700 py-3">{
+          
+          // description
+          }</p>
         </div>
       </div>
       <div className="flex justify-center items-center py-4">
