@@ -1,6 +1,7 @@
 // components/CourseCard.tsx
 "use client";
-
+import { useSelector } from 'react-redux';
+import { RootState } from '@/lib/store/store';
 import React, { useState } from "react";
 import ReplyToListing from "./ReplyToListing";
 
@@ -11,6 +12,8 @@ function SideLayout() {
   const [activeTab, setActiveTab] = useState<string>("Overview");
   const [isOpen, setIsOpen] = useState(false);
 
+
+  const form = useSelector((state: RootState) => state.form);
   const tabs = ["Overview", "Instructors", "Curriculum", "Reviews", "FAQs"];
 
   const openPopup = () => setIsOpen(true);
@@ -43,7 +46,7 @@ function SideLayout() {
         <div className="w-80 mx-auto p-4">
           {/* Price Section */}
           <div className="bg-white rounded-md shadow p-4 text-center mb-4">
-            <p className="text-lg font-medium">$30/hr</p>
+            <p className="text-lg font-medium">${form.price}</p>
           </div>
 
           {/* Button Section */}
