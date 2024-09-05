@@ -13,10 +13,11 @@ const getListingSchema = zod.object({
   category: zod.string(),
   title: zod.string(),
   price: zod.string(),
+  mode: zod.string().optional(),
   location: zod.string(),
   quantity: zod.string().optional(),
-  startDate: zod.string().optional(),
-  endDate: zod.string().optional(),
+  startDate: zod.string(),
+  endDate: zod.string(),
   days: zod.string(),
   gender: zod.string(),
   startTime: zod.string().optional(),
@@ -28,10 +29,11 @@ const postListingSchema = zod.object({
   category: zod.string(),
   title: zod.string(),
   price: zod.string(),
+  mode: zod.string().optional(),
   location: zod.string(),
   quantity: zod.string().optional(),
-  startDate: zod.string().optional(),
-  endDate: zod.string().optional(),
+  startDate: zod.string(),
+  endDate: zod.string(),
   days: zod.string(),
   gender: zod.string(),
   startTime: zod.string(),
@@ -51,41 +53,42 @@ const postListingSchema = zod.object({
 //can be used in listing filtering
 listingRouter.get("/listing", async function (req, res) {
   const filter = req.query.filter || "";
-  const listings = await Listing.find({
-    $or: [
-      {
-        category: {
-          $regex: filter,
-        },
-      },
-      {
-        title: {
-          $regex: filter,
-        },
-      },
-    ],
-  });
+  const listing = await Listing.find();
 
-  res.status(200).json({
-    user: listings.map((listing) => ({
-      listId: listing._id,
-      trainerId: listing.trainerId,
-      category: listing.category,
-      title: listing.title,
-      price: listing.price,
-      location: listing.location,
-      quantity: listing.quantity,
-      startDate: listing.startDate,
-      endDate: listing.endDate,
-      days: listing.days,
-      gender: listing.gender,
-      startTime: listing.startTime,
-      endTime: listing.endTime,
-      ageGroup: listing.ageGroup,
-      description: listing.description,
-    })),
-  });
+  res.status(200).json({listings: listing});
+
 });
+
+listingRouter.get("/listing/:listingId", async function (req, res) {
+  // Extract the listingId from the route parameter
+  const { listingId } = req.params;
+
+  try {
+    // Fetch the listing from the database using the listingId
+    const listing = await Listing.findById(listingId);
+
+    // Check if the listing exists
+    if (!listing) {
+      return res.status(404).json({
+        message: "Listing not found",
+      });
+    }
+
+    // Return the found listing
+    res.status(200).json({
+      message: "Listing retrieved successfully",
+      listing,
+    });
+  } catch (error) {
+    // Handle any errors that occur
+    res.status(500).json({
+      message: "Error fetching listing",
+      error,
+    });
+  }
+});
+
+
 
 listingRouter.post("/add-listing",trainerAuthMiddleware,async function (req, res) {
     const inputFromTrainer = {
@@ -93,6 +96,7 @@ listingRouter.post("/add-listing",trainerAuthMiddleware,async function (req, res
       category: req.body.category,
       title: req.body.title,
       price: req.body.price,
+      mode: req.body.mode,
       location: req.body.location,
       quantity: req.body.quantity,
       startDate: req.body.startDate,
@@ -132,6 +136,7 @@ listingRouter.post("/add-listing",trainerAuthMiddleware,async function (req, res
       res.status(200).json({
         message: "list created successfully",
         token: token,
+        listingId: listing._id
       });
     } catch (error) {
       res.status(411).json({

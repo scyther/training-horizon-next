@@ -26,20 +26,24 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/trainer-dashboard/ui/select";
+import { Dialog, DialogContent, DialogHeader } from "../trainer-dashboard/ui/dialog";
+import { DialogDescription, DialogTitle, DialogTrigger } from "@radix-ui/react-dialog";
 
 export function AddListing() {
   const categories = ["Basketball", "Table Tennis", "Yoga", "Other"] as const;
   const gender = ["Male", "Female", "Other"] as const;
   const agegroup = ["5-8", "8-12", "13-18", "18-21", "21+"] as const;
+  const mode = ["Offline", "Online"] as const;
 
   const formSchema = z.object({
     category: z.string(),
     title: z.string(),
     price: z.string(),
+    mode: z.string(),
     location: z.string(),
     quantity: z.string().optional(),
-    startDate: z.string().optional(),
-    endDate: z.string().optional(),
+    startDate: z.string(),
+    endDate: z.string(),
     days: z.string(),
     gender: z.string(),
     startTime: z.string().optional(),
@@ -51,41 +55,50 @@ export function AddListing() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: "",
-      price: "",
-      location: "",
       quantity: "",
-      startDate: "",
-      endDate: "",
-      days: "",
       startTime: "",
       endTime: "",
-      description: "",
-    },
+    }
   });
 
-  const [isOnline, setIsOnline] = useState(false);
-  const [daysCount, setDaysCount] = useState(0);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [selectedMode, setSelectedMode] = useState("");
+  const [formValues, setFormValues] = useState<z.infer<typeof formSchema>>({
+    category: "",
+    title: "",
+    price: "",
+    mode: "",
+    location: "",
+    quantity: "",
+    startDate: "",
+    endDate: "",
+    days: "",
+    gender: "",
+    startTime: "",
+    endTime: "",
+    ageGroup: "",
+    description: "",
+  });
 
   const router = useRouter();
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    
     try {
       const response = await axios.post('http://localhost:3005/api/v1/listing/add-listing', values, {
         headers: {
-          'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmQxZDM0MWQ1YTcyMGU5MGFlYTJiNjQiLCJpYXQiOjE3MjUwMjcxMzd9.hgARNbf2gVSkPVbRiglOrAoTRSSTeayjVrCqg1KhwCI`,
+          'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmQxZDM0MWQ1YTcyMGU5MGFlYTJiNjQiLCJpYXQiOjE3MjU0MDgyODJ9.YH3aJtElSKnWsacQtGDrriUhZAwlNcjkDOhUAK49WIY`,
           'Content-Type': 'application/json',
         },
       });
-      
-      router.push('/dashboard/teacher/thankyou')
+      const listingId = response.data.listingId
+
+      router.push(`/dashboard/teacher/preview?listingId=${listingId}`);
+      // router.push('/dashboard/teacher/thankyou')
       return response.data;
     } catch (error) {
       console.error('Error posting data:', error);
       throw error;
     }
-
   };
 
   const handleDateChange = () => {
@@ -105,7 +118,6 @@ export function AddListing() {
         form.clearErrors("endDate");
         const diffTime = Math.abs(end.getTime() - start.getTime());
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-        setDaysCount(diffDays);
         form.setValue("days", String(diffDays));
       }
     }
@@ -119,6 +131,25 @@ export function AddListing() {
     });
     return () => subscription.unsubscribe();
   }, [form.watch]);
+
+  const handleReviewClick = () => {
+    setFormValues(form.getValues());
+    setIsDialogOpen(true);
+  };
+
+  const handleSubmit = () => {
+    handleDateChange();
+
+  // Check if there are any validation errors
+  const hasErrors = form.formState.errors.startDate || form.formState.errors.endDate;
+  
+  if (hasErrors) {
+    // If there are errors, do not submit
+    return;
+  }
+    form.handleSubmit(onSubmit)();
+    setIsDialogOpen(false);
+  };
 
   return (
     <div className="m-4">
@@ -136,7 +167,7 @@ export function AddListing() {
               <FormItem>
                 <FormLabel>CATEGORY</FormLabel>
                 <FormControl>
-                  <Select onValueChange={field.onChange} value={field.value}>
+                  <Select onValueChange={field.onChange} value={field.value ?? ""}>
                     <SelectTrigger className="w-full">
                       <SelectValue placeholder="Select a category" />
                     </SelectTrigger>
@@ -164,7 +195,7 @@ export function AddListing() {
               <FormItem>
                 <FormLabel>TITLE</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} value={field.value ?? ""} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -178,7 +209,38 @@ export function AddListing() {
               <FormItem>
                 <FormLabel>PRICE</FormLabel>
                 <FormControl>
-                  <Input type="number" {...field} />
+                  <Input type="number" {...field} value={field.value ?? ""} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          {/* Mode Field */}
+          <FormField
+            name="mode"
+            control={form.control}
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Mode</FormLabel>
+                <FormControl>
+                  <Select onValueChange={(value) => { 
+                    field.onChange(value);
+                    setSelectedMode(value); // Update state with selected mode
+                  } } value={field.value ?? ""}>
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Select Mode" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        <SelectLabel>Mode</SelectLabel>
+                        {mode.map((mode) => (
+                          <SelectItem key={mode} value={mode}>
+                            {mode}
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -190,9 +252,9 @@ export function AddListing() {
             control={form.control}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>LOCATION</FormLabel>
+                <FormLabel>{selectedMode === "Online" ? "ZOOM LINK" : "LOCATION"}</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                <Input {...field} value={field.value ?? ""} placeholder={selectedMode === "Online" ? "Enter Zoom link" : "Enter location"} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -206,7 +268,7 @@ export function AddListing() {
               <FormItem>
                 <FormLabel>QUANTITY (OPTIONAL)</FormLabel>
                 <FormControl>
-                  <Input type="number" {...field} />
+                  <Input type="number" {...field} value={field.value} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -218,9 +280,9 @@ export function AddListing() {
             control={form.control}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>START DATE (OPTIONAL)</FormLabel>
+                <FormLabel>START DATE</FormLabel>
                 <FormControl>
-                  <Input type="date" {...field} onChange={field.onChange} />
+                  <Input type="date" {...field} onChange={field.onChange} value={field.value ?? ""} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -232,9 +294,9 @@ export function AddListing() {
             control={form.control}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>END DATE (OPTIONAL)</FormLabel>
+                <FormLabel>END DATE</FormLabel>
                 <FormControl>
-                  <Input type="date" {...field} onChange={field.onChange} />
+                  <Input type="date" {...field} onChange={field.onChange} value={field.value ?? ""} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -248,7 +310,7 @@ export function AddListing() {
               <FormItem>
                 <FormLabel>DAYS</FormLabel>
                 <FormControl>
-                  <Input type="number" readOnly {...field} />
+                  <Input type="number" readOnly {...field} value={field.value ?? ""} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -262,7 +324,7 @@ export function AddListing() {
               <FormItem>
                 <FormLabel>GENDER</FormLabel>
                 <FormControl>
-                  <Select onValueChange={field.onChange} value={field.value}>
+                  <Select onValueChange={field.onChange} value={field.value ?? ""}>
                     <SelectTrigger className="w-full">
                       <SelectValue placeholder="Select Gender" />
                     </SelectTrigger>
@@ -288,9 +350,9 @@ export function AddListing() {
             control={form.control}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>START TIME</FormLabel>
+                <FormLabel>START TIME (OPTIONAL)</FormLabel>
                 <FormControl>
-                  <Input type="time" {...field} />
+                  <Input type="time" {...field} value={field.value} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -304,7 +366,7 @@ export function AddListing() {
               <FormItem>
                 <FormLabel>END TIME (OPTIONAL)</FormLabel>
                 <FormControl>
-                  <Input type="time" {...field} />
+                  <Input type="time" {...field} value={field.value} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -318,7 +380,7 @@ export function AddListing() {
               <FormItem>
                 <FormLabel>AGE GROUP</FormLabel>
                 <FormControl>
-                  <Select onValueChange={field.onChange} value={field.value}>
+                  <Select onValueChange={field.onChange} value={field.value ?? ""}>
                     <SelectTrigger className="w-full">
                       <SelectValue placeholder="Select age group" />
                     </SelectTrigger>
@@ -346,13 +408,44 @@ export function AddListing() {
               <FormItem>
                 <FormLabel>DESCRIPTION</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} value={field.value ?? ""} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <Button type="submit">Submit Listing</Button>
+          <div className="w-full flex justify-between">
+            <Dialog open={isDialogOpen} onOpenChange={(open) => setIsDialogOpen(open)}>
+              <DialogTrigger asChild>
+                <Button type="button" onClick={handleReviewClick}>Review</Button>
+              </DialogTrigger>
+              <DialogContent className="max-sm:w-[425px">
+                <DialogHeader>
+                  <DialogTitle>Review Details</DialogTitle>
+                  <DialogDescription>Click edit to make changes, Click submit when done</DialogDescription>
+                </DialogHeader>
+                <div>
+                  <div className="flex justify-between"><strong>Category:</strong> {formValues.category}</div>
+                  <div className="flex justify-between"><strong>Title:</strong> {formValues.title}</div>
+                  <div className="flex justify-between"><strong>Price:</strong> {formValues.price}</div>
+                  <div className="flex justify-between"><strong>Mode:</strong> {formValues.mode}</div>
+                  <div className="flex justify-between"><strong>Location:</strong> {formValues.location}</div>
+                  <div className="flex justify-between"><strong>Quantity:</strong> {formValues.quantity}</div>
+                  <div className="flex justify-between"><strong>Start Date:</strong> {formValues.startDate}</div>
+                  <div className="flex justify-between"><strong>End Date:</strong> {formValues.endDate}</div>
+                  <div className="flex justify-between"><strong>Days:</strong> {formValues.days}</div>
+                  <div className="flex justify-between"><strong>Gender:</strong> {formValues.gender}</div>
+                  <div className="flex justify-between"><strong>Start Time:</strong> {formValues.startTime}</div>
+                  <div className="flex justify-between"><strong>End Time:</strong> {formValues.endTime}</div>
+                  <div className="flex justify-between"><strong>Age Group:</strong> {formValues.ageGroup}</div>
+                  <div className="flex justify-between"><strong>Description:</strong> {formValues.description}</div>
+                </div><div className="flex justify-between mt-4">
+                  <Button type="button" onClick={() => setIsDialogOpen(false)}>Edit</Button>
+                  <Button type="button" onClick={handleSubmit}>Submit Listing</Button>
+                </div>
+              </DialogContent>
+            </Dialog>
+          </div>
         </form>
       </Form>
     </div>

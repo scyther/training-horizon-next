@@ -3,6 +3,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 const cors = require('cors');
 const trainer_router = require('./routes/trainerRoutes')
+const rootRouter = require('./routes/mainRouter')
 const connectDB = require('./config/db');
 
 const app = express();
@@ -13,8 +14,8 @@ app.use(express.json());
 connectDB();
 
 // all routes here
-app.use('/api/v1' , trainer_router)
-// app.use('/api/v1',rootRouter);
+// app.use('/api/v1' , trainer_router)
+app.use('/api/v1',rootRouter);
 
 
 app.listen(PORT, () => {
