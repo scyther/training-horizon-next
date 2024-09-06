@@ -29,7 +29,7 @@ const GoogleMapComponent: React.FC<GoogleMapComponentProps> = ({ apiKey }) => {
 
     const geocoder = new google.maps.Geocoder();
     geocoder.geocode({ address }, (results, status) => {
-      if (status === 'OK') {
+      if (status === 'OK' && results) {
         setLocation({
           lat: results[0].geometry.location.lat(),
           lng: results[0].geometry.location.lng()

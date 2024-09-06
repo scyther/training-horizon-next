@@ -1,11 +1,11 @@
 import PreviewPage from '@/components/UserFlow/Preview'
-import React from 'react'
+import React, { Suspense } from 'react'
 
 const page = () => {
   return (
-    <>
+    <Suspense>
     <PreviewPage />
-    </>
+    </Suspense>
   )
 }
 
